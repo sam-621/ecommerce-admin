@@ -1,0 +1,13 @@
+{
+  "name": "root",
+  "private": true,
+  "scripts": {
+    "prepare": "yarn husky install && chmod ug+x .husky/*"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^18.4.1",
+    "@commitlint/config-conventional": "^18.4.0",
+    "husky": "^8.0.3",
+    "lerna": "^4.0.0"
+  }
+}
