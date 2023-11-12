@@ -6,7 +6,6 @@
   },
   "extends": [
     "plugin:react/recommended",
-    "eslint:recommended",
     "next/core-web-vitals",
     "standard-with-typescript",
     "prettier"
@@ -33,10 +32,7 @@
     "@typescript-eslint/consistent-type-definitions": "off",
     "@typescript-eslint/no-unnecessary-type-constraint": "off",
     "@typescript-eslint/array-type": "off",
-    "@typescript-eslint/no-confusing-void-expression": [
-      "error",
-      { "ignoreArrowShorthand": true }
-    ],
+    "@typescript-eslint/no-confusing-void-expression": ["error", { "ignoreArrowShorthand": true }],
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error"
   }
