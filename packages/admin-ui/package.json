@@ -8,7 +8,10 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write .",
-    "add:component": "npx shadcn-ui@latest add ${NAME} && mv src/ui/theme/ui/${NAME}.tsx src/ui/theme/components && rm -r src/ui/theme/ui && echo \"export * from './\"$NAME\"'\" >> src/ui/theme/components/index.ts && prettier src/ui/theme/components/${NAME}.tsx --write"
+    "add:component": "npx shadcn-ui@latest add ${NAME} && mv src/ui/theme/ui/${NAME}.tsx src/ui/theme/components && rm -r src/ui/theme/ui && echo \"export * from './\"$NAME\"'\" >> src/ui/theme/components/index.ts && prettier src/ui/theme/components/${NAME}.tsx --write",
+    "db:push": "prisma db push",
+    "db:types": "prisma generate",
+    "db:preview": "prisma studio"
   },
   "dependencies": {
     "@prisma/client": "^5.5.2",
