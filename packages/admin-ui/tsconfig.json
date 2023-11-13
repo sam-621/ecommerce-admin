@@ -2,7 +2,9 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "paths": {
-      "@/*": ["./src/*"]
+      "@/core/*": ["./src/core/*"],
+
+      "@/ui/*": ["./src/ui/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
