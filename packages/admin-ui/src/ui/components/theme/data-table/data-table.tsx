@@ -14,7 +14,7 @@ import {
 import { PlusCircleIcon } from 'lucide-react';
 import { type ReactNode, useState } from 'react';
 
-import { cn } from '../../utils';
+import { cn } from '../../../utils';
 import { Button } from '../button';
 import { Input } from '../input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../table';
