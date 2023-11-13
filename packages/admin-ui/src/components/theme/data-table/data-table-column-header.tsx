@@ -1,7 +1,7 @@
 import type { Column } from '@tanstack/react-table';
 import { ArrowDownIcon, ArrowUpIcon, ChevronsUpDownIcon } from 'lucide-react';
 
-import { cn } from '../../../utils';
+import { cn } from '../../utils';
 import { Button } from '../button';
 import {
   DropdownMenu,

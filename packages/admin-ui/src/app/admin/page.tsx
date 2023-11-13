@@ -1,5 +1,5 @@
-import { AdminPageLayout } from '@/ui/components/layouts';
-import { Button } from '@/ui/components/theme';
+import { AdminPageLayout } from '@/components/layouts';
+import { Button } from '@/components/theme';
 
 export default function DashboardRoute() {
   return (

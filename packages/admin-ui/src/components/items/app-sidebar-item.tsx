@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { type FC, type ReactElement } from 'react';
 
-import { cn } from '../../utils';
+import { cn } from '../utils';
 
 export const AppSidebarItem: FC<Props> = ({ text, href, icon }) => {
   const pathname = usePathname();

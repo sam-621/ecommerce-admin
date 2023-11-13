@@ -15,8 +15,8 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger
-} from '@/ui/components/theme';
-import { useTheme } from '@/ui/ui-provider';
+} from '../theme';
+import { useTheme } from '../theme-provider';
 
 export const UserMenu = () => {
   const { setDark, setLight, setSystem } = useTheme();

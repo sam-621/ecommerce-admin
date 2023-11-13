@@ -8,9 +8,8 @@ import {
 } from 'lucide-react';
 import { type FC } from 'react';
 
-import { cn } from '@/ui/utils';
-
 import { AppSidebarItem } from '../items';
+import { cn } from '../utils';
 
 export const AppSidebar: FC<Props> = async ({ className }) => {
   return (

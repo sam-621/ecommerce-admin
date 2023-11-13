@@ -1,8 +1,7 @@
 import { type FC, type PropsWithChildren, type ReactElement } from 'react';
 
-import { cn } from '@/ui/utils';
-
 import { Breadcrumbs } from '../theme';
+import { cn } from '../utils';
 
 export const AdminPageLayout: FC<Props> = ({
   title,

@@ -1,6 +1,6 @@
 import { type Metadata } from 'next';
 
-import { UserAuthForm } from './auth';
+import { LoginForm } from './components/login-form';
 
 export const metadata: Metadata = {
   title: 'Authentication',
@@ -44,7 +44,7 @@ export default function AuthenticationPage() {
               <h1 className="text-2xl font-semibold tracking-tight">Inicia sesión</h1>
               <p className="text-sm text-muted-foreground">Introduce tu username y contraseña.</p>
             </div>
-            <UserAuthForm />
+            <LoginForm />
           </div>
         </div>
       </div>
