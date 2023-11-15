@@ -18,21 +18,25 @@ export const validateProduct = (input: ValidateInput) => {
 };
 
 const Validator = z.object({
-  name: z.string(),
-  slug: z.string(),
-  sku: z.string(),
+  name: z.string().min(3),
+  slug: z.string().min(3),
+  sku: z.string().min(3),
   description: z.string().optional(),
   image: z.string().optional(),
-  price: z.number().transform(arg => new Decimal(arg)),
+  price: z
+    .number()
+    .min(0)
+    .transform(arg => new Decimal(arg)),
   comparisonPrice: z
     .number()
+    .min(0)
     .transform(arg => new Decimal(arg))
     .optional(),
   weight: z
     .number()
     .transform(arg => new Decimal(arg))
     .optional(),
-  stock: z.number().int(),
+  stock: z.number().int().min(0),
   enabled: z.boolean().default(true)
 });
 

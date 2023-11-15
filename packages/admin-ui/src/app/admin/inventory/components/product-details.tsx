@@ -17,22 +17,27 @@ export const ProductDetails = () => {
         <Card>
           <CardContent className="flex flex-col gap-4 p-4">
             <div className="flex gap-4">
-              <Input label="Nombre" placeholder="Black T-shirt" />
-              <Input label="Slug" placeholder="black-t-shirt" />
+              <Input name="name" label="Nombre" placeholder="Black T-shirt" />
+              <Input name="slug" label="Slug" placeholder="black-t-shirt" />
             </div>
-            <Textarea label="Descripción" />
-            <Dropzone />
+            <Textarea name="description" label="Descripción" />
+            <Dropzone name="image" />
           </CardContent>
         </Card>
 
         <Card>
           <CardContent className="flex flex-col gap-4 p-4">
-            <Input type="number" label="SKU" placeholder="123" />
+            <Input name="sku" type="text" label="SKU" placeholder="123" />
             <div className="flex gap-4">
-              <Input type="number" label="Precio" placeholder="$ 0,00" />
-              <Input type="number" label="Precio comparado" placeholder="$ 0,00" />
+              <Input name="price" type="number" label="Precio" placeholder="$ 0,00" />
+              <Input
+                name="comparedPrice"
+                type="number"
+                label="Precio comparado"
+                placeholder="$ 0,00"
+              />
             </div>
-            <Input type="number" label="Stock" placeholder="0" />
+            <Input name="stock" type="number" label="Stock" placeholder="0" />
           </CardContent>
         </Card>
 
@@ -40,7 +45,7 @@ export const ProductDetails = () => {
           <CardContent className="flex flex-col gap-4 p-4">
             <Checkbox label="Este producto requiere envío" />
             <div className="flex gap-4">
-              <Input label="Peso" placeholder="0 kg" />
+              <Input name="weight" label="Peso" placeholder="0 kg" />
             </div>
           </CardContent>
         </Card>
@@ -58,6 +63,7 @@ export const ProductDetails = () => {
         <Card>
           <CardContent className="p-4">
             <Select
+              name="state"
               placeholder="Estado"
               label="Estado"
               // defaultSelectedKeys={[productState]}
