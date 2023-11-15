@@ -1,8 +1,8 @@
 import { type Product } from '@prisma/client';
 
 import { DataTable } from '@/components/theme';
+import { getProducts } from '@/lib/repository/products';
 
-import { getProducts } from '../inventory-data';
 import { inventoryTableColumns } from './table-columns';
 
 export const InventoryTable = async () => {

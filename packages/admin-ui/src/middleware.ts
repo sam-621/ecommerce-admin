@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 import type { NextRequest } from 'next/server';
 
-import { COOKIE_TOKEN_FIELD, verifyJWT } from './core/shared/libs/jwt';
+import { COOKIE_TOKEN_FIELD, verifyJWT } from './lib/jwt';
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {

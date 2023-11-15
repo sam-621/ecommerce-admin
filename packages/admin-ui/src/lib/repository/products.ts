@@ -1,4 +1,4 @@
-import { prisma } from '@/core/shared/persistance';
+import { prisma } from './index';
 
 export const getProducts = async () => {
   const products = await prisma.product.findMany();
