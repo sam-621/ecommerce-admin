@@ -1,7 +1,7 @@
 'use client';
 import { Laptop, LogOutIcon, Moon, Sun, SunMoon, User } from 'lucide-react';
 
-import { logout } from '@/core/auth/actions';
+import { logout } from '@/core/auth';
 
 import {
   Avatar,

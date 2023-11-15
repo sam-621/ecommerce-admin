@@ -5,7 +5,7 @@ import { useFormState, useFormStatus } from 'react-dom';
 
 import { Button, Input, Label } from '@/components/theme';
 import { cn } from '@/components/utils';
-import { authenticate } from '@/core/auth/actions';
+import { authenticate } from '@/core/auth';
 
 export function LoginForm() {
   const [error, action] = useFormState(authenticate, undefined);

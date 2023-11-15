@@ -2,9 +2,9 @@
 
 import { redirect } from 'next/navigation';
 
+import { findAdminByUsername } from '../administrator';
 import { compare } from '../shared/libs/hashing';
 import { removeJWT, saveJWT } from '../shared/libs/jwt';
-import { prisma } from '../shared/persistance';
 import { validateAuthentication } from './validators';
 
 export const authenticate = async (prevState: string | undefined, formData: FormData) => {
@@ -19,7 +19,7 @@ export const authenticate = async (prevState: string | undefined, formData: Form
 
   const { username, password } = validation.data;
 
-  const admin = await prisma.administrator.findUnique({ where: { username } });
+  const admin = await findAdminByUsername(username);
 
   if (!admin) {
     return 'El usuario o la contraseña son incorrectos';

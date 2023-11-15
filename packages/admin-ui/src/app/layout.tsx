@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     default: 'Vendyx'
   },
   description:
-    'Simplifica la gestión de tiendas en línea. Optimiza inventarios, atiende a clientes y personaliza tu experiencia de comercio electrónico. Descubre la eficiencia con Vendyx.'
+    'Simplifica la gestión de tiendas en línea. Optimiza inventarios, atiende a clientes y personaliza tu experiencia de comercio electrónico.'
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
