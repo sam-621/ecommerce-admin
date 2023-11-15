@@ -3,8 +3,7 @@ import { type Metadata } from 'next';
 import { LoginForm } from './components/login-form';
 
 export const metadata: Metadata = {
-  title: 'Authentication',
-  description: 'Authentication forms built using the components.'
+  title: 'Vendyx | Entra'
 };
 
 export default function AuthenticationPage() {
