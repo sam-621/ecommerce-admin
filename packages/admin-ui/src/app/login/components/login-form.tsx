@@ -1,9 +1,10 @@
 'use client';
 
-import { AlertCircleIcon, Loader2Icon } from 'lucide-react';
-import { useFormState, useFormStatus } from 'react-dom';
+import { AlertCircleIcon } from 'lucide-react';
+import { useFormState } from 'react-dom';
 
-import { Button, Input, Label } from '@/components/theme';
+import { FormButton } from '@/components/forms';
+import { Input, Label } from '@/components/theme';
 import { cn } from '@/components/utils';
 
 import { authenticate } from '../actions';
@@ -35,7 +36,7 @@ export function LoginForm() {
               autoCapitalize="none"
             />
           </div>
-          <FormButton />
+          <FormButton>Entrar</FormButton>
           <div className="flex h-5 items-center gap-2">
             {error && (
               <>
@@ -51,14 +52,3 @@ export function LoginForm() {
     </div>
   );
 }
-
-const FormButton = () => {
-  const { pending } = useFormStatus();
-
-  return (
-    <Button aria-disabled={pending} disabled={pending}>
-      {pending && <Loader2Icon className="mr-2 h-4 w-4 animate-spin" />}
-      Entrar
-    </Button>
-  );
-};

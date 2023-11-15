@@ -4,7 +4,8 @@ import { AlertTriangleIcon, CheckIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useFormState } from 'react-dom';
 
-import { Alert, Button } from '@/components/theme';
+import { FormButton } from '@/components/forms';
+import { Alert } from '@/components/theme';
 
 import { createProduct } from '../actions';
 import { ProductDetails } from '../components';
@@ -17,9 +18,7 @@ export default function CreateProductPage() {
       <div className="flex items-center justify-between">
         <h1 className="text-foreground font-bold text-3xl">Crear producto</h1>
         <div className="flex gap-4">
-          <Button color="primary" type="submit">
-            Guardar producto
-          </Button>
+          <FormButton>Guardar Producto</FormButton>
         </div>
       </div>
       {code.message && (
