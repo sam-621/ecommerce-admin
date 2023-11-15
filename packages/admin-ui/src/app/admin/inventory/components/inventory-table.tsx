@@ -8,9 +8,20 @@ import { inventoryTableColumns } from './table-columns';
 export const InventoryTable = async () => {
   const products = await getProducts();
 
+  const tableProducts: TableProduct[] = products.map(p => ({
+    id: p.id,
+    name: p.name,
+    slug: p.slug,
+    price: p.price,
+    sku: p.sku,
+    image: p.image,
+    stock: p.stock,
+    enabled: p.enabled
+  }));
+
   return (
     <DataTable
-      data={products}
+      data={tableProducts}
       columns={inventoryTableColumns}
       search={{
         placeholder: 'Buscar productos...',
@@ -22,5 +33,7 @@ export const InventoryTable = async () => {
 
 export type TableProduct = Pick<
   Product,
-  'id' | 'name' | 'slug' | 'enabled' | 'image' | 'price' | 'stock' | 'sku'
->;
+  'id' | 'name' | 'slug' | 'enabled' | 'image' | 'stock' | 'sku'
+> & {
+  price: number;
+};

@@ -3,6 +3,7 @@
 import { type Product } from '@prisma/client';
 
 import { saveProduct } from '@/lib/repository/products';
+import { uploadImage } from '@/lib/upload';
 import { getJsonFromFormData } from '@/lib/utils';
 import { type StringifyObject } from '@/lib/utils/types';
 
@@ -14,6 +15,8 @@ export const createProduct = async (
 ) => {
   const input = getJsonFromFormData<StringifyObject<Product>>(formData);
 
+  const imageUrl = await uploadImage(formData.get('image') as File);
+
   const validation = validateProduct({
     ...input,
     price: Number(input.price ?? 0),
@@ -21,7 +24,7 @@ export const createProduct = async (
     weight: Number(input.weight ?? 0),
     stock: Number(input.stock ?? 0),
     enabled: input.enabled === 'enabled',
-    image: ''
+    image: imageUrl ?? ''
   });
 
   if (validation.errors) {

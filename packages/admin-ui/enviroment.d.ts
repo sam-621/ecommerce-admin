@@ -1,5 +1,3 @@
-import { type PrismaClient } from '@prisma/client';
-
 export {};
 
 // Here we declare the members of the process.env object, so that we
@@ -9,6 +7,8 @@ declare global {
     interface ProcessEnv {
       AUTH_KEY: string;
       EXPIRATION_TIME: string;
+      CLOUDINARY_CLOUD_NAME: string;
+      CLOUDINARY_UPLOAD_PRESET: string;
     }
   }
 }
