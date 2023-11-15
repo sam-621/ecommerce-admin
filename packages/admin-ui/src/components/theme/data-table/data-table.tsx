@@ -11,11 +11,9 @@ import {
   type SortingState,
   useReactTable
 } from '@tanstack/react-table';
-import { PlusCircleIcon } from 'lucide-react';
 import { type ReactNode, useState } from 'react';
 
 import { cn } from '../../utils';
-import { Button } from '../button';
 import { Input } from '../input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../table';
 import { DataTablePagination } from './data-table-pagination';
@@ -55,10 +53,6 @@ export const DataTable = <TData, TValue>({ columns, data, search }: Props<TData,
             }
             className="max-w-sm h-9"
           />
-          <Button variant="outline" size={'sm'} className=" border-dashed">
-            <PlusCircleIcon className="mr-2 h-4 w-4" />
-            Status
-          </Button>
         </div>
         <DataTableViewOptions table={table} />
       </div>
@@ -93,7 +87,7 @@ export const DataTable = <TData, TValue>({ columns, data, search }: Props<TData,
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-24 text-center">
-                  No results.
+                  No hay resultados.
                 </TableCell>
               </TableRow>
             )}

@@ -4,6 +4,7 @@ export * from './breadcrumbs';
 export * from './button';
 export * from './button-link';
 export * from './checkbox';
+export * from './data-table';
 export * from './dropdown-menu';
 export * from './input';
 export * from './label';
