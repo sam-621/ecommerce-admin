@@ -23,7 +23,13 @@ export async function middleware(request: NextRequest) {
     return null;
   }
 
-  // return NextResponse.redirect(new URL('/home', request.url));
+  if (token) {
+    const isValidSession = await verifyJWT(token);
+
+    if (!isValidSession) return null;
+
+    return Response.redirect(new URL('/admin', request.url));
+  }
 }
 
 // See "Matching Paths" below to learn more

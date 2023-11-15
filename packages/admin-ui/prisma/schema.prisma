@@ -255,7 +255,7 @@ model Administrator {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
-  username  String   @db.VarChar(255)
+  username  String   @unique @db.VarChar(255)
   password  String   @db.VarChar(255)
 
   @@map("administrator")

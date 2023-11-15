@@ -32,10 +32,22 @@ export const authenticate = async (prevState: string | undefined, formData: Form
     return 'El usuario o la contraseña son incorrectos';
   }
 
-  const token = await signJWT({ username });
-
-  cookies().set(COOKIE_TOKEN_FIELD, token);
+  await saveJWT(username);
   redirect('/admin');
+};
+
+export const saveJWT = async (username: string) => {
+  const iat = Math.floor(Date.now() / 1000);
+  const exp = iat + Number(process.env.EXPIRATION_TIME);
+
+  const token = await signJWT({ username }, { iat, exp });
+
+  const date = new Date();
+
+  cookies().set(COOKIE_TOKEN_FIELD, token, {
+    httpOnly: true,
+    expires: date.setMilliseconds(date.getMilliseconds() + exp)
+  });
 };
 
 export const getIsValidSession = async () => {
