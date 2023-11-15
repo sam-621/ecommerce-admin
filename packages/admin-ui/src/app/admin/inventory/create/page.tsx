@@ -41,7 +41,7 @@ export default function CreateProductPage() {
                     agregar otro producto{' '}
                   </Link>
                   o{' '}
-                  <Link href={'/admin/inventory/create'} className="underline">
+                  <Link href={'/admin/inventory'} className="underline">
                     ver todos tus productos
                   </Link>
                 </div>

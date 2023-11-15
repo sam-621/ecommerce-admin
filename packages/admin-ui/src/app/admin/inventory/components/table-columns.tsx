@@ -1,6 +1,7 @@
 'use client';
 
 import { type ColumnDef } from '@tanstack/react-table';
+import { Package } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -46,13 +47,19 @@ export const inventoryTableColumns: ColumnDef<TableProduct>[] = [
     },
     cell: ({ row }) => (
       <Link href={`/inventory/${row.original.slug ?? ''}`} className="flex items-center gap-2">
-        <Image
-          src={row.original.image ?? ''}
-          alt={row.getValue('name')}
-          className="h-12 w-12 object-cover rounded-md"
-          width={48}
-          height={48}
-        />
+        {row.original.image ? (
+          <Image
+            src={row.original.image ?? ''}
+            alt={row.getValue('name')}
+            className="h-12 w-12 object-cover rounded-md"
+            width={48}
+            height={48}
+          />
+        ) : (
+          <div className="flex justify-center items-center bg-neutral-100 rounded-md w-12 h-12 dark:bg-neutral-900">
+            <Package className="text-neutral-700 dark:text-neutral-500" />
+          </div>
+        )}
         <span>{row.original.name}</span>
       </Link>
     )
