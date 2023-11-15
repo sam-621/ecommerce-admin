@@ -1,5 +1,7 @@
 'use client';
-import { Laptop, Moon, Sun, SunMoon, User } from 'lucide-react';
+import { Laptop, LogOutIcon, Moon, Sun, SunMoon, User } from 'lucide-react';
+
+import { logout } from '@/core/auth/actions';
 
 import {
   Avatar,
@@ -64,6 +66,19 @@ export const UserMenu = () => {
             </DropdownMenuPortal>
           </DropdownMenuSub>
         </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <form action={logout}>
+          <DropdownMenuItem className="p-0">
+            <Button
+              type="submit"
+              variant={'ghost'}
+              className="h-full w-full flex justify-start px-2 py-[6px]"
+            >
+              <LogOutIcon className="mr-2 h-4 w-4 transition-all text-red-500 hover:text-red-500" />
+              <span className='text-red-500 hover:text-red-500"'>Logout</span>
+            </Button>
+          </DropdownMenuItem>
+        </form>
       </DropdownMenuContent>
     </DropdownMenu>
   );
