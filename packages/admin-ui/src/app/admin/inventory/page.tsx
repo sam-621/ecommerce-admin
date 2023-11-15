@@ -11,7 +11,7 @@ export default function InventoryPage() {
       title="Inventory"
       breadcrumbs
       actions={
-        <ButtonLink className="flex gap-2 flex-shrink-0" href="/inventory/create">
+        <ButtonLink className="flex gap-2 flex-shrink-0" href="/admin/inventory/create">
           <PlusCircleIcon size={16} /> Agregar producto
         </ButtonLink>
       }
