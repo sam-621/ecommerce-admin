@@ -1,7 +1,22 @@
 import { jwtVerify, SignJWT } from 'jose';
+import { cookies } from 'next/headers';
 
 const AUTH_KEY = process.env.AUTH_KEY;
 export const COOKIE_TOKEN_FIELD = 'token';
+
+export const saveJWT = async (username: string) => {
+  const iat = Math.floor(Date.now() / 1000);
+  const exp = iat + Number(process.env.EXPIRATION_TIME);
+
+  const token = await sign({ username }, { iat, exp });
+
+  const date = new Date();
+
+  cookies().set(COOKIE_TOKEN_FIELD, token, {
+    httpOnly: true,
+    expires: date.setMilliseconds(date.getMilliseconds() + exp)
+  });
+};
 
 export async function verifyJWT(token: string): Promise<JWTPayload | null> {
   try {
@@ -19,7 +34,11 @@ export async function verifyJWT(token: string): Promise<JWTPayload | null> {
   }
 }
 
-export async function signJWT(payload: JWTPayload, opt?: JWTOptions): Promise<string> {
+export const removeJWT = () => {
+  cookies().delete(COOKIE_TOKEN_FIELD);
+};
+
+async function sign(payload: JWTPayload, opt?: JWTOptions): Promise<string> {
   const iat = opt?.iat ?? Math.floor(Date.now() / 1000);
   const exp = opt?.exp ?? iat + 60 * 60; // one hour
 
