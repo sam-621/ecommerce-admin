@@ -62,17 +62,7 @@ export const ProductDetails = () => {
       <div className="flex flex-col gap-6">
         <Card>
           <CardContent className="p-4">
-            <Select
-              name="state"
-              placeholder="Estado"
-              label="Estado"
-              // defaultSelectedKeys={[productState]}
-              // label="Estado"
-              // options={[
-              //   { label: 'Habilitado', value: 'enabled' },
-              //   { label: 'Desabilitado', value: 'disabled' }
-              // ]}
-            >
+            <Select defaultValue="enabled" name="state" placeholder="Estado" label="Estado">
               <SelectItem value="enabled">Habilitado</SelectItem>
               <SelectItem value="disabled">Desabilitado</SelectItem>
             </Select>
