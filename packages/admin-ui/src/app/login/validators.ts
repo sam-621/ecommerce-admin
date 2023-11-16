@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+import { type Administrator } from '@/lib/types';
+
 export const validateAuthentication = (input: ValidateAuthInput) => {
   const validation = Validator.safeParse(input);
 
@@ -21,7 +23,4 @@ const Validator = z.object({
   password: z.string().min(6, 'Contraseña debe ser mayor a 6 caracteres')
 });
 
-type ValidateAuthInput = {
-  username: string;
-  password: string;
-};
+type ValidateAuthInput = Pick<Administrator, 'username' | 'password'>;

@@ -5,11 +5,11 @@ export interface Product {
   name: string;
   slug: string;
   sku: string;
-  description: string;
-  image: string;
+  description?: string;
+  image?: string;
   price: number;
-  comparisonPrice: number;
-  weight: number;
+  comparisonPrice?: number;
+  weight?: number;
   stock: number;
   enabled: boolean;
 }
