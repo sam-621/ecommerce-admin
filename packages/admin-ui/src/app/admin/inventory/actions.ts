@@ -1,21 +1,17 @@
 'use server';
 
-import { type Product } from '@prisma/client';
-
-import { saveProduct } from '@/lib/repository/products';
+import { saveProduct } from '@/lib/repository';
+import { type Product } from '@/lib/types';
 import { uploadImage } from '@/lib/upload';
-import { getJsonFromFormData } from '@/lib/utils';
-import { type StringifyObject } from '@/lib/utils/types';
+import { getJsonFromFormData, type ServerActionResult, type StringifyObject } from '@/lib/utils';
 
 import { validateProduct } from './validators';
 
-export const createProduct = async (
-  prevState: { error: boolean; message: string },
-  formData: FormData
-) => {
+export const createProduct = async (prevState: ServerActionResult, formData: FormData) => {
   const input = getJsonFromFormData<StringifyObject<Product>>(formData);
+  const image = input.image as unknown as File;
 
-  const imageUrl = await uploadImage(formData.get('image') as File);
+  const imageUrl = image.size ? await uploadImage(image) : '';
 
   const validation = validateProduct({
     ...input,

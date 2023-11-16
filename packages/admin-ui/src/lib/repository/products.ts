@@ -1,8 +1,8 @@
 import { type Prisma } from '@prisma/client';
 
 import { type Product } from '../types';
-import { prisma } from './index';
 import { getProductMapped } from './mappers';
+import { prisma } from './prisma';
 
 export const getProducts = async (): Promise<Product[]> => {
   const products = await prisma.product.findMany();

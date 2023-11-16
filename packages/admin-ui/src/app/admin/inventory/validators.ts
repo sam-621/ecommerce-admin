@@ -1,5 +1,7 @@
-import { Decimal } from '@prisma/client/runtime/library';
 import { z } from 'zod';
+
+import { type Product } from '@/lib/types';
+import { type MakeAny } from '@/lib/utils';
 
 export const validateProduct = (input: ValidateInput) => {
   const validation = Validator.safeParse(input);
@@ -23,32 +25,11 @@ const Validator = z.object({
   sku: z.string().min(3),
   description: z.string().optional(),
   image: z.string().optional(),
-  price: z
-    .number()
-    .min(0)
-    .transform(arg => new Decimal(arg)),
-  comparisonPrice: z
-    .number()
-    .min(0)
-    .transform(arg => new Decimal(arg))
-    .optional(),
-  weight: z
-    .number()
-    .transform(arg => new Decimal(arg))
-    .optional(),
+  price: z.number().min(0),
+  comparisonPrice: z.number().min(0).optional(),
+  weight: z.number().optional(),
   stock: z.number().int().min(0),
   enabled: z.boolean().default(true)
-});
+} satisfies MakeAny<ValidateInput>);
 
-type ValidateInput = {
-  name: string;
-  slug: string;
-  sku: string;
-  description?: string;
-  image?: string;
-  price: number;
-  comparisonPrice?: number;
-  weight?: number;
-  stock: number;
-  enabled: boolean;
-};
+type ValidateInput = Omit<Product, 'id' | 'createdAt' | 'updatedAt'>;

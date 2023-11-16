@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation';
 
 import { compare } from '@/lib/hash';
 import { removeJWT, saveJWT } from '@/lib/jwt';
-import { getAdminByUsername } from '@/lib/repository/admin';
+import { getAdminByUsername } from '@/lib/repository';
 import { type ServerActionResult } from '@/lib/utils';
 
 import { validateAuthentication } from './validators';
