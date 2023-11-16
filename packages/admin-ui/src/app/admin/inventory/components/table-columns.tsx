@@ -46,7 +46,10 @@ export const inventoryTableColumns: ColumnDef<TableProduct>[] = [
       return <DataTableColumnHeader column={column} title="Producto" />;
     },
     cell: ({ row }) => (
-      <Link href={`/inventory/${row.original.slug ?? ''}`} className="flex items-center gap-2">
+      <Link
+        href={`/admin/inventory/${row.original.slug ?? ''}`}
+        className="flex items-center gap-2"
+      >
         {row.original.image ? (
           <Image
             src={row.original.image ?? ''}
