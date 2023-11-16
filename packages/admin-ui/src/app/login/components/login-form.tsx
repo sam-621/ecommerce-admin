@@ -4,45 +4,47 @@ import { AlertCircleIcon } from 'lucide-react';
 import { useFormState } from 'react-dom';
 
 import { FormButton } from '@/components/forms';
-import { Input, Label } from '@/components/theme';
+import { Input } from '@/components/theme';
 import { cn } from '@/components/utils';
 
 import { authenticate } from '../actions';
 
 export function LoginForm() {
-  const [error, action] = useFormState(authenticate, undefined);
+  const [state, action] = useFormState(authenticate, { message: '', error: false });
 
   return (
     <div className={cn('grid gap-6')}>
       <form action={action}>
         <div className="grid gap-6">
           <div className="grid gap-1">
-            <Label htmlFor="username">Username</Label>
             <Input
               id="username"
+              label="Username"
               name="username"
               placeholder="sam_621"
               type="text"
               autoCapitalize="none"
+              errorMessage={state.fieldErrors?.username}
             />
           </div>
           <div className="grid gap-1">
-            <Label htmlFor="password">Password</Label>
             <Input
               id="password"
+              label="Password"
               name="password"
-              placeholder="*****"
+              placeholder="******"
               type="password"
               autoCapitalize="none"
+              errorMessage={state.fieldErrors?.password}
             />
           </div>
           <FormButton>Entrar</FormButton>
           <div className="flex h-5 items-center gap-2">
-            {error && (
+            {state.error && (
               <>
                 <AlertCircleIcon className="h-5 w-5 text-red-500" />
                 <p aria-live="polite" className="text-sm text-red-500">
-                  {error}
+                  {state.message}
                 </p>
               </>
             )}

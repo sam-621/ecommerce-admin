@@ -2,10 +2,16 @@
 
 import { ThemeProvider as NextThemesProvider, useTheme as useNextTheme } from 'next-themes';
 import { type ThemeProviderProps } from 'next-themes/dist/types';
+import NextTopLoader from 'nextjs-toploader';
 import * as React from 'react';
 
 export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
-  return <NextThemesProvider {...props}>{children}</NextThemesProvider>;
+  return (
+    <>
+      <NextTopLoader color="hsl(var(--primary))" />
+      <NextThemesProvider {...props}>{children}</NextThemesProvider>
+    </>
+  );
 }
 
 export const useTheme = () => {

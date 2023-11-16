@@ -17,8 +17,8 @@ export const validateAuthentication = (input: ValidateAuthInput) => {
 };
 
 const Validator = z.object({
-  username: z.string().min(3),
-  password: z.string().min(6)
+  username: z.string().min(3, 'Nombre de usuario debe ser mayor a 3 caracteres'),
+  password: z.string().min(6, 'Contraseña debe ser mayor a 6 caracteres')
 });
 
 type ValidateAuthInput = {
