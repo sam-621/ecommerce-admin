@@ -12,15 +12,15 @@ import { type ServerActionResult } from '@/lib/utils';
 
 import { ProductDetails } from './product-details';
 
-export const ProductForm: FC<Props> = ({ action: propAction, product }) => {
+export const ProductForm: FC<Props> = ({ action: propAction, title, product }) => {
   const [code, action] = useFormState(propAction, { error: false, message: '' });
 
   return (
     <form action={action} className="flex flex-col gap-8">
       <div className="flex items-center justify-between">
-        <h1 className="text-foreground font-bold text-3xl">Crear producto</h1>
+        <h1 className="text-foreground font-bold text-3xl">{title}</h1>
         <div className="flex gap-4">
-          <FormButton>Guardar Producto</FormButton>
+          <FormButton>Guardar producto</FormButton>
         </div>
       </div>
       {code.message && (
@@ -66,5 +66,6 @@ type Props = {
     error: boolean;
     message: string;
   }>;
+  title: string;
   product?: Product;
 };

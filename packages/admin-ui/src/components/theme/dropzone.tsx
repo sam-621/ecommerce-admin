@@ -6,7 +6,6 @@ import {
   type DetailedHTMLProps,
   forwardRef,
   type InputHTMLAttributes,
-  useEffect,
   useRef,
   useState
 } from 'react';
@@ -19,23 +18,48 @@ export const Dropzone = forwardRef<HTMLInputElement, Props>(function Dropzone(
 ) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState<File | null>(null);
+  const [isDefaultValueRemoved, setIsDefaultValueRemoved] = useState<boolean>(false);
   const previewUrl = file ? URL.createObjectURL(file) : null;
 
   const handleRemove = () => {
     setFile(null);
+
+    if (defaultValue) {
+      setIsDefaultValueRemoved(true);
+    }
 
     if (!inputRef.current) return;
 
     inputRef.current.value = '';
   };
 
-  useEffect(() => {
-    if (!inputRef.current) return;
-
-    if (!defaultValue) return;
-
-    inputRef.current.value = defaultValue;
-  }, [defaultValue]);
+  if (defaultValue && !file && !isDefaultValueRemoved) {
+    return (
+      <div className="flex flex-col gap-3">
+        <span>Imagen:</span>
+        <div className="flex justify-between items-center">
+          <div className="flex gap-2 items-center">
+            <Image
+              src={defaultValue}
+              alt="Imagen subida"
+              width={60}
+              height={60}
+              className="object-cover rounded-md"
+            />
+          </div>
+          <div>
+            <Button
+              onClick={handleRemove}
+              variant={'ghost'}
+              className="p-0 h-fit hover:bg-transparent"
+            >
+              <XIcon className="text-muted-foreground" />
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col gap-4 w-full">

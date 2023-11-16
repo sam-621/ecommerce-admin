@@ -1,6 +1,8 @@
 'use server';
 
-import { saveProduct } from '@/lib/repository';
+import { revalidatePath } from 'next/cache';
+
+import { saveProduct, updateProductSaved } from '@/lib/repository';
 import { type Product } from '@/lib/types';
 import { uploadImage } from '@/lib/upload';
 import { getJsonFromFormData, type ServerActionResult, type StringifyObject } from '@/lib/utils';
@@ -32,8 +34,48 @@ export const createProduct = async (prevState: ServerActionResult, formData: For
 
   await saveProduct(validation.data);
 
+  revalidatePath('/admin/inventory');
+
   return {
     error: false,
     message: `Producto ${validation.data.name} creado`
+  };
+};
+
+export const updateProduct = async (
+  product: Product,
+  prevState: ServerActionResult,
+  formData: FormData
+) => {
+  const input = getJsonFromFormData<StringifyObject<Product>>(formData);
+  const image = input.image as unknown as File | undefined;
+
+  const imageUrl =
+    image instanceof File ? (image?.size ? await uploadImage(image) : '') : product.image;
+
+  const validation = validateProduct({
+    ...input,
+    price: Number(input.price ?? 0),
+    comparisonPrice: Number(input.comparisonPrice ?? 0),
+    weight: Number(input.weight ?? 0),
+    stock: Number(input.stock ?? 0),
+    enabled: input.enabled === 'enabled',
+    image: imageUrl ?? ''
+  });
+
+  if (validation.errors) {
+    return {
+      error: true,
+      message: 'Error en los datos introducidos'
+    };
+  }
+
+  await updateProductSaved(product.id, validation.data);
+
+  revalidatePath(`/admin/inventory/${product.slug}`);
+
+  return {
+    error: false,
+    message: `Producto ${validation.data.name} actualizado`
   };
 };
