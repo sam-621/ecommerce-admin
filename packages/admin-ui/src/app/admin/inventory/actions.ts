@@ -3,7 +3,7 @@
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
-import { saveProduct, updateProductSaved } from '@/lib/repository';
+import { removeProduct, saveProduct, updateProductSaved } from '@/lib/repository';
 import { type Product } from '@/lib/types';
 import { uploadImage } from '@/lib/upload';
 import { getJsonFromFormData, type ServerActionResult, type StringifyObject } from '@/lib/utils';
@@ -75,4 +75,11 @@ export const updateProduct = async (
     error: false,
     message: `Producto ${validation.data.name} actualizado`
   };
+};
+
+export const deleteProduct = async (id: string) => {
+  await removeProduct(id);
+
+  revalidatePath('/admin/inventory');
+  redirect('/admin/inventory');
 };

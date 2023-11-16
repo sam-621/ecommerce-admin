@@ -35,3 +35,7 @@ export const getProductBySlug = async (slug: string): Promise<Product | null> =>
 
   return !product ? null : getProductMapped(product);
 };
+
+export const removeProduct = async (id: string): Promise<void> => {
+  await prisma.product.delete({ where: { id } });
+};

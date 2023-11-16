@@ -13,6 +13,8 @@ import {
 } from '@/components/theme';
 import { type Product } from '@/lib/types';
 
+import { deleteProduct } from '../actions';
+
 export const ProductDetails: FC<Props> = ({ product }) => {
   return (
     <section className="grid grid-cols-[2fr,1fr] gap-6">
@@ -85,7 +87,11 @@ export const ProductDetails: FC<Props> = ({ product }) => {
         <Card>
           <CardContent className="flex flex-col gap-4 p-4">
             <span className="text-xl">Zona de peligro</span>
-            <Button variant="destructive" className="w-fit">
+            <Button
+              onClick={async () => await deleteProduct(product?.id ?? '')}
+              variant="destructive"
+              className="w-fit"
+            >
               Eliminar producto
             </Button>
           </CardContent>
