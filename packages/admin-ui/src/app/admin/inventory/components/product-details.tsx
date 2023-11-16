@@ -1,3 +1,5 @@
+import { type FC } from 'react';
+
 import {
   Button,
   Card,
@@ -9,43 +11,73 @@ import {
   SelectItem,
   Textarea
 } from '@/components/theme';
+import { type Product } from '@/lib/types';
 
-export const ProductDetails = () => {
+export const ProductDetails: FC<Props> = ({ product }) => {
   return (
     <section className="grid grid-cols-[2fr,1fr] gap-6">
       <div className="flex flex-col gap-6">
         <Card>
           <CardContent className="flex flex-col gap-4 p-4">
             <div className="flex gap-4">
-              <Input name="name" label="Nombre" placeholder="Black T-shirt" />
-              <Input name="slug" label="Slug" placeholder="black-t-shirt" />
+              <Input
+                name="name"
+                label="Nombre"
+                placeholder="Black T-shirt"
+                defaultValue={product?.name}
+              />
+              <Input
+                name="slug"
+                label="Slug"
+                placeholder="black-t-shirt"
+                defaultValue={product?.slug}
+              />
             </div>
-            <Textarea name="description" label="Descripción" />
-            <Dropzone name="image" />
+            <Textarea name="description" label="Descripción" defaultValue={product?.description} />
+            <Dropzone name="image" defaultValue={product?.image} />
           </CardContent>
         </Card>
 
         <Card>
           <CardContent className="flex flex-col gap-4 p-4">
-            <Input name="sku" type="text" label="SKU" placeholder="123" />
+            <Input
+              name="sku"
+              type="text"
+              label="SKU"
+              placeholder="123"
+              defaultValue={product?.sku}
+            />
             <div className="flex gap-4">
-              <Input name="price" type="number" label="Precio" placeholder="$ 0,00" />
               <Input
-                name="comparedPrice"
+                name="price"
+                type="number"
+                label="Precio"
+                placeholder="$ 0,00"
+                defaultValue={product?.price}
+              />
+              <Input
+                name="comparisonPrice"
                 type="number"
                 label="Precio comparado"
                 placeholder="$ 0,00"
+                defaultValue={product?.comparisonPrice}
               />
             </div>
-            <Input name="stock" type="number" label="Stock" placeholder="0" />
+            <Input
+              name="stock"
+              type="number"
+              label="Stock"
+              placeholder="0"
+              defaultValue={product?.stock}
+            />
           </CardContent>
         </Card>
 
         <Card>
           <CardContent className="flex flex-col gap-4 p-4">
-            <Checkbox label="Este producto requiere envío" />
+            <Checkbox label="Este producto requiere envío" checked={Boolean(product?.weight)} />
             <div className="flex gap-4">
-              <Input name="weight" label="Peso" placeholder="0 kg" />
+              <Input name="weight" label="Peso" placeholder="0 kg" defaultValue={product?.weight} />
             </div>
           </CardContent>
         </Card>
@@ -62,7 +94,18 @@ export const ProductDetails = () => {
       <div className="flex flex-col gap-6">
         <Card>
           <CardContent className="p-4">
-            <Select defaultValue="enabled" name="state" placeholder="Estado" label="Estado">
+            <Select
+              defaultValue={
+                product?.enabled === undefined
+                  ? 'enabled'
+                  : product?.enabled
+                  ? 'enabled'
+                  : 'disabled'
+              }
+              name="state"
+              placeholder="Estado"
+              label="Estado"
+            >
               <SelectItem value="enabled">Habilitado</SelectItem>
               <SelectItem value="disabled">Desabilitado</SelectItem>
             </Select>
@@ -81,4 +124,8 @@ export const ProductDetails = () => {
       </div>
     </section>
   );
+};
+
+type Props = {
+  product?: Product;
 };
