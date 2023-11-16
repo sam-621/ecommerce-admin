@@ -1,6 +1,7 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
 
 import { saveProduct, updateProductSaved } from '@/lib/repository';
 import { type Product } from '@/lib/types';
@@ -35,11 +36,7 @@ export const createProduct = async (prevState: ServerActionResult, formData: For
   await saveProduct(validation.data);
 
   revalidatePath('/admin/inventory');
-
-  return {
-    error: false,
-    message: `Producto ${validation.data.name} creado`
-  };
+  redirect(`/admin/inventory/${validation.data.slug}?isCreated=true`);
 };
 
 export const updateProduct = async (

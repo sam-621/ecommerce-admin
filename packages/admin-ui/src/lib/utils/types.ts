@@ -11,3 +11,8 @@ export type ServerActionResult = {
   fieldErrors?: Record<string, string[] | undefined>;
   error?: boolean;
 };
+
+export type ServerPage = {
+  params: { slug: string };
+  searchParams: Record<string, string | string[] | undefined>;
+};
