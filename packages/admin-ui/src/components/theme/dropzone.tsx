@@ -6,13 +6,17 @@ import {
   type DetailedHTMLProps,
   forwardRef,
   type InputHTMLAttributes,
+  useEffect,
   useRef,
   useState
 } from 'react';
 
 import { Button } from './button';
 
-export const Dropzone = forwardRef<HTMLInputElement, Props>(function Dropzone({ ...rest }, ref) {
+export const Dropzone = forwardRef<HTMLInputElement, Props>(function Dropzone(
+  { defaultValue, ...rest },
+  ref
+) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState<File | null>(null);
   const previewUrl = file ? URL.createObjectURL(file) : null;
@@ -24,6 +28,14 @@ export const Dropzone = forwardRef<HTMLInputElement, Props>(function Dropzone({ 
 
     inputRef.current.value = '';
   };
+
+  useEffect(() => {
+    if (!inputRef.current) return;
+
+    if (!defaultValue) return;
+
+    inputRef.current.value = defaultValue;
+  }, [defaultValue]);
 
   return (
     <div className="flex flex-col gap-4 w-full">
@@ -79,4 +91,9 @@ export const Dropzone = forwardRef<HTMLInputElement, Props>(function Dropzone({ 
   );
 });
 
-type Props = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
+type Props = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {
+  /**
+   * Image url
+   */
+  defaultValue?: string;
+};
