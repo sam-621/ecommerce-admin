@@ -1,5 +1,3 @@
-'use client';
-
 import type { Row } from '@tanstack/react-table';
 import { MoreHorizontalIcon } from 'lucide-react';
 import type { FC } from 'react';
