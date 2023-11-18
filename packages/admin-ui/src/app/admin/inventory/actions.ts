@@ -18,6 +18,7 @@ export const createProduct = async (prevState: ServerActionResult, formData: For
 
   const validation = validateProduct({
     ...input,
+    slug: input.name.replaceAll(' ', '-').toLowerCase(),
     price: Number(input.price ?? 0),
     comparisonPrice: Number(input.comparisonPrice ?? 0),
     weight: Number(input.weight ?? 0),
@@ -52,6 +53,7 @@ export const updateProduct = async (
 
   const validation = validateProduct({
     ...input,
+    slug: product.slug,
     price: Number(input.price ?? 0),
     comparisonPrice: Number(input.comparisonPrice ?? 0),
     weight: Number(input.weight ?? 0),
@@ -69,10 +71,7 @@ export const updateProduct = async (
 
   const productUpdated = await updateProductSaved(product.id, validation.data);
 
-  revalidatePath(`/admin/inventory/${productUpdated.slug}`);
-  if (productUpdated.slug !== product.slug) {
-    redirect(`/admin/inventory/${productUpdated.slug}`);
-  }
+  revalidatePath(`/admin/inventory`);
 
   return {
     error: false,

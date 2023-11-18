@@ -29,12 +29,12 @@ export const ProductDetails: FC<Props> = ({ product }) => {
                 placeholder="Black T-shirt"
                 defaultValue={product?.name}
               />
-              <Input
+              {/* <Input
                 name="slug"
                 label="Slug"
                 placeholder="black-t-shirt"
                 defaultValue={product?.slug}
-              />
+              /> */}
             </div>
             <Textarea name="description" label="Descripción" defaultValue={product?.description} />
             <Dropzone name="image" defaultValue={product?.image} />

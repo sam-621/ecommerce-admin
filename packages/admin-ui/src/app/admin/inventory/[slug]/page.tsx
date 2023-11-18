@@ -4,8 +4,7 @@ import { notFound } from 'next/navigation';
 import { getProductBySlug } from '@/lib/repository';
 import { type ServerPage } from '@/lib/utils';
 
-import { updateProduct } from '../actions';
-import { ProductForm } from '../components';
+import { UpdateProductForm } from '../components';
 
 export default async function ProductDetailsPage({ params, searchParams }: ServerPage) {
   const slug = params.slug;
@@ -17,10 +16,9 @@ export default async function ProductDetailsPage({ params, searchParams }: Serve
     notFound();
   }
 
-  const updateProductAction = updateProduct.bind(null, product);
-
   return (
-    <ProductForm
+    <UpdateProductForm
+      product={product}
       headerMessage={
         isCreated
           ? {
@@ -42,9 +40,6 @@ export default async function ProductDetailsPage({ params, searchParams }: Serve
             }
           : undefined
       }
-      title={product.name}
-      action={updateProductAction}
-      product={product}
     />
   );
 }

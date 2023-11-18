@@ -1,6 +1,5 @@
-import { createProduct } from '../actions';
-import { ProductForm } from '../components';
+import { CreateProductForm } from '../components';
 
 export default function CreateProductPage() {
-  return <ProductForm title="Crear producto" action={createProduct} />;
+  return <CreateProductForm />;
 }

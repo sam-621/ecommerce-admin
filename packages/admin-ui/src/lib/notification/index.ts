@@ -1,4 +1,3 @@
-import { type ReactNode } from 'react';
 import { toast } from 'sonner';
 
 /**
@@ -23,26 +22,36 @@ import { toast } from 'sonner';
  */
 export const notification = {
   /**
-   * Display a success notification with the provided message
+   * Renders a check mark icon in front of the message.
    * @param msg message to display
    * @param description description to display
+   * @param id notification id, useful if you want to update the state of one notification
    * @returns notification id
    */
-  success: (msg: string, description?: ReactNode) => {
-    return toast.success(msg, { description });
+  success: (msg: string, options?: NotificationOptions) => {
+    return toast.success(msg, options);
   },
 
   /**
-   * Display an error notification with the provided message
+   * Renders an error icon in front of the message.
    * @param msg message to display
    * @returns notification id
    */
-  error: (msg: string) => {
-    return toast.error(msg);
+  error: (msg: string, options?: NotificationOptions) => {
+    return toast.error(msg, options);
   },
 
   /**
-   * Dismiss a notification by the notification id provided
+   * Renders a toast with a loading spinner. Useful when you want to handle various states yourself instead of using a promise toast.
+   * @param msg message to display
+   * @returns notification id
+   */
+  loading: (msg: string, options?: NotificationOptions) => {
+    return toast.loading(msg, options);
+  },
+
+  /**
+   *  Dismiss a notification by the notification id provided
    * @param id notification id returned from other notification methods
    *
    * @example
@@ -57,4 +66,9 @@ export const notification = {
   dismiss: (id: string) => {
     toast.dismiss(id);
   }
+};
+
+type NotificationOptions = {
+  id?: string | number;
+  description?: string;
 };

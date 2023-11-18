@@ -15,7 +15,9 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger
 } from '@/components/theme';
+import { notification } from '@/lib/notification';
 
+import { deleteProduct } from '../actions';
 import { type TableProduct } from './inventory-table';
 
 export const InventoryTableActions: FC<Props> = ({ row }) => {
@@ -44,7 +46,13 @@ export const InventoryTableActions: FC<Props> = ({ row }) => {
           </DropdownMenuSubContent>
         </DropdownMenuSub>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={async () => {
+            const id = notification.loading(`Eliminando producto ${product.name}`);
+            await deleteProduct(product.id);
+            notification.success(`Producto ${product.name} eliminado`, { id });
+          }}
+        >
           <span className="text-destructive font-medium">Eliminar</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
