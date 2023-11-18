@@ -44,6 +44,12 @@ export const updateProduct = async (
   prevState: ServerActionResult,
   formData: FormData
 ) => {
+  console.log({
+    excecuted: true,
+    product,
+    formData
+  });
+
   const input = getJsonFromFormData<StringifyObject<Product>>(formData);
   const image = input.image as unknown as File | undefined;
 

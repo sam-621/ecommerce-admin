@@ -91,6 +91,7 @@ export const ProductDetails: FC<Props> = ({ product }) => {
               onClick={async () => await deleteProduct(product?.id ?? '')}
               variant="destructive"
               className="w-fit"
+              type="button"
             >
               Eliminar producto
             </Button>
