@@ -1,12 +1,10 @@
 import { type Prisma } from '@prisma/client';
-import { unstable_noStore as noStore } from 'next/cache';
 
 import { type Product } from '../types';
 import { getProductMapped } from './mappers';
 import { prisma } from './prisma';
 
 export const getProducts = async (): Promise<Product[]> => {
-  noStore();
   const products = await prisma.product.findMany();
 
   return products.map(p => getProductMapped(p));
