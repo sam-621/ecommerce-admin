@@ -48,8 +48,8 @@ export const updateProduct = async (
   const input = getJsonFromFormData<StringifyObject<Product>>(formData);
   const image = input.image as unknown as File | undefined;
 
-  const imageUrl =
-    image instanceof File ? (image?.size ? await uploadImage(image) : '') : product.image;
+  const isFile = image?.size !== undefined;
+  const imageUrl = isFile ? (image?.size ? await uploadImage(image) : '') : product.image;
 
   const validation = validateProduct({
     ...input,
