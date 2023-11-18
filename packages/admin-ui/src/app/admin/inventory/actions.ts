@@ -72,7 +72,6 @@ export const updateProduct = async (
   const productUpdated = await updateProductSaved(product.id, validation.data);
 
   revalidatePath(`/admin/inventory`);
-  redirect(`/admin/inventory/${productUpdated.slug}`);
 
   return {
     error: false,
