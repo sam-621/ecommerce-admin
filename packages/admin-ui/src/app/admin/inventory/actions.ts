@@ -83,5 +83,4 @@ export const deleteProduct = async (id: string) => {
   await removeProduct(id);
 
   revalidatePath('/admin/inventory');
-  redirect('/admin/inventory');
 };
