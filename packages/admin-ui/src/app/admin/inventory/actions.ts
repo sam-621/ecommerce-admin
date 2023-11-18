@@ -44,12 +44,6 @@ export const updateProduct = async (
   prevState: ServerActionResult,
   formData: FormData
 ) => {
-  console.log({
-    excecuted: true,
-    product,
-    formData
-  });
-
   const input = getJsonFromFormData<StringifyObject<Product>>(formData);
   const image = input.image as unknown as File | undefined;
 
@@ -73,13 +67,16 @@ export const updateProduct = async (
     };
   }
 
-  await updateProductSaved(product.id, validation.data);
+  const productUpdated = await updateProductSaved(product.id, validation.data);
 
-  revalidatePath(`/admin/inventory/${product.slug}`);
+  revalidatePath(`/admin/inventory/${productUpdated.slug}`);
+  if (productUpdated.slug !== product.slug) {
+    redirect(`/admin/inventory/${productUpdated.slug}`);
+  }
 
   return {
     error: false,
-    message: `Producto ${validation.data.name} actualizado`
+    message: `Producto ${productUpdated.name} actualizado`
   };
 };
 

@@ -1,3 +1,5 @@
+'use client';
+
 import { Loader2Icon } from 'lucide-react';
 import { type FC, type PropsWithChildren, type ReactElement } from 'react';
 import { useFormStatus } from 'react-dom';

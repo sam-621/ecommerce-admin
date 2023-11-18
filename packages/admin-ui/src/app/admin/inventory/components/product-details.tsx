@@ -11,6 +11,7 @@ import {
   SelectItem,
   Textarea
 } from '@/components/theme';
+import { notification } from '@/lib/notification';
 import { type Product } from '@/lib/types';
 
 import { deleteProduct } from '../actions';
@@ -88,7 +89,10 @@ export const ProductDetails: FC<Props> = ({ product }) => {
           <CardContent className="flex flex-col gap-4 p-4">
             <span className="text-xl">Zona de peligro</span>
             <Button
-              onClick={async () => await deleteProduct(product?.id ?? '')}
+              onClick={async () => {
+                await deleteProduct(product?.id ?? '');
+                notification.success(`Producto ${product?.name} eliminado`);
+              }}
               variant="destructive"
               className="w-fit"
               type="button"

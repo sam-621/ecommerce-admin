@@ -1,3 +1,4 @@
+import { type ReactNode } from 'react';
 import { toast } from 'sonner';
 
 /**
@@ -24,10 +25,11 @@ export const notification = {
   /**
    * Display a success notification with the provided message
    * @param msg message to display
+   * @param description description to display
    * @returns notification id
    */
-  success: (msg: string) => {
-    return toast.success(msg);
+  success: (msg: string, description?: ReactNode) => {
+    return toast.success(msg, { description });
   },
 
   /**
