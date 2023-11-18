@@ -85,22 +85,24 @@ export const ProductDetails: FC<Props> = ({ product }) => {
           </CardContent>
         </Card>
 
-        <Card>
-          <CardContent className="flex flex-col gap-4 p-4">
-            <span className="text-xl">Zona de peligro</span>
-            <Button
-              onClick={async () => {
-                await deleteProduct(product?.id ?? '');
-                notification.success(`Producto ${product?.name} eliminado`);
-              }}
-              variant="destructive"
-              className="w-fit"
-              type="button"
-            >
-              Eliminar producto
-            </Button>
-          </CardContent>
-        </Card>
+        {product?.id && (
+          <Card>
+            <CardContent className="flex flex-col gap-4 p-4">
+              <span className="text-xl">Zona de peligro</span>
+              <Button
+                onClick={async () => {
+                  await deleteProduct(product?.id ?? '');
+                  notification.success(`Producto ${product?.name} eliminado`);
+                }}
+                variant="destructive"
+                className="w-fit"
+                type="button"
+              >
+                Eliminar producto
+              </Button>
+            </CardContent>
+          </Card>
+        )}
       </div>
       <div className="flex flex-col gap-6">
         <Card>
