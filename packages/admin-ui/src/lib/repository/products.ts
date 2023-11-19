@@ -27,12 +27,12 @@ const save = async (input: Prisma.ProductCreateInput): Promise<Product> => {
 };
 
 const update = async (id: string, input: Prisma.ProductUpdateInput): Promise<Product> => {
-  const productSaved = await prisma.product.update({
+  const productUpdated = await prisma.product.update({
     where: { id },
     data: input
   });
 
-  return getProductMapped(productSaved);
+  return getProductMapped(productUpdated);
 };
 
 const remove = async (id: string): Promise<void> => {
