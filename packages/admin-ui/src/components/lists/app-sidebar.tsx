@@ -31,9 +31,9 @@ export const AppSidebar: FC<Props> = async ({ className }) => {
             />
 
             <AppSidebarItem
-              href="/admin/collections"
+              href="/admin/category"
               icon={<BoxesIcon className="flex-shrink-0" size={16} />}
-              text="Collections"
+              text="Categorías"
             />
           </div>
         </div>
