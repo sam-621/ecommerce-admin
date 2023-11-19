@@ -3,6 +3,8 @@ import { PlusCircleIcon } from 'lucide-react';
 import { AdminPageLayout } from '@/components/layouts';
 import { ButtonLink } from '@/components/theme';
 
+import { CategoryTable } from './components';
+
 export default function CategoryPage() {
   return (
     <AdminPageLayout
@@ -14,7 +16,7 @@ export default function CategoryPage() {
         </ButtonLink>
       }
     >
-      <h1>Category</h1>
+      <CategoryTable />
     </AdminPageLayout>
   );
 }

@@ -4,10 +4,17 @@ import { type Category } from '../types';
 import { getCategoryMapped } from './mappers';
 import { prisma } from './prisma';
 
-const getMany = async (): Promise<Category[]> => {
-  const categories = await prisma.category.findMany();
+const getMany = async (): Promise<(Category & { items: number })[]> => {
+  const categories = await prisma.category.findMany({
+    include: {
+      products: true
+    }
+  });
 
-  return categories.map(c => getCategoryMapped(c));
+  return categories.map(c => ({
+    ...getCategoryMapped(c),
+    items: c.products.length
+  }));
 };
 
 const getBySlug = async (slug: string): Promise<Category | null> => {
