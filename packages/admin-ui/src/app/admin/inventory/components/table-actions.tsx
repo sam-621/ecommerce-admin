@@ -17,7 +17,7 @@ import {
 } from '@/components/theme';
 import { notification } from '@/lib/notification';
 
-import { deleteProduct } from '../actions';
+import { removeProduct } from '../actions';
 import { type TableProduct } from './inventory-table';
 
 export const InventoryTableActions: FC<Props> = ({ row }) => {
@@ -49,7 +49,7 @@ export const InventoryTableActions: FC<Props> = ({ row }) => {
         <DropdownMenuItem
           onClick={async () => {
             const id = notification.loading(`Eliminando producto ${product.name}`);
-            await deleteProduct(product.id);
+            await removeProduct(product.id);
             notification.success(`Producto ${product.name} eliminado`, { id });
           }}
         >

@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation';
 
 import { compare } from '@/lib/hash';
 import { removeJWT, saveJWT } from '@/lib/jwt';
-import { getAdminByUsername } from '@/lib/repository';
+import { AdminRepository } from '@/lib/repository';
 import { type ServerActionResult } from '@/lib/utils';
 
 import { validateAuthentication } from './validators';
@@ -25,7 +25,7 @@ export const authenticate = async (prevState: ServerActionResult, formData: Form
 
   const { username, password } = validation.data;
 
-  const admin = await getAdminByUsername(username);
+  const admin = await AdminRepository.getByUsername(username);
 
   if (!admin) {
     return {

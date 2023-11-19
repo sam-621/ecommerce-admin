@@ -5,14 +5,20 @@ import { type Product } from '../types';
 import { getProductMapped } from './mappers';
 import { prisma } from './prisma';
 
-export const getProducts = async (): Promise<Product[]> => {
+const getMany = async (): Promise<Product[]> => {
   noStore();
   const products = await prisma.product.findMany();
 
   return products.map(p => getProductMapped(p));
 };
 
-export const saveProduct = async (input: Prisma.ProductCreateInput): Promise<Product> => {
+const getBySlug = async (slug: string): Promise<Product | null> => {
+  const product = await prisma.product.findUnique({ where: { slug } });
+
+  return !product ? null : getProductMapped(product);
+};
+
+const save = async (input: Prisma.ProductCreateInput): Promise<Product> => {
   const productSaved = await prisma.product.create({
     data: input
   });
@@ -20,10 +26,7 @@ export const saveProduct = async (input: Prisma.ProductCreateInput): Promise<Pro
   return getProductMapped(productSaved);
 };
 
-export const updateProductSaved = async (
-  id: string,
-  input: Prisma.ProductUpdateInput
-): Promise<Product> => {
+const update = async (id: string, input: Prisma.ProductUpdateInput): Promise<Product> => {
   const productSaved = await prisma.product.update({
     where: { id },
     data: input
@@ -32,12 +35,14 @@ export const updateProductSaved = async (
   return getProductMapped(productSaved);
 };
 
-export const getProductBySlug = async (slug: string): Promise<Product | null> => {
-  const product = await prisma.product.findUnique({ where: { slug } });
-
-  return !product ? null : getProductMapped(product);
+const remove = async (id: string): Promise<void> => {
+  await prisma.product.delete({ where: { id } });
 };
 
-export const removeProduct = async (id: string): Promise<void> => {
-  await prisma.product.delete({ where: { id } });
+export const ProductRepository = {
+  getMany,
+  getBySlug,
+  save,
+  update,
+  remove
 };

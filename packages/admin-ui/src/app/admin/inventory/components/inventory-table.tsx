@@ -1,11 +1,11 @@
 import { DataTable } from '@/components/theme';
-import { getProducts } from '@/lib/repository';
+import { ProductRepository } from '@/lib/repository';
 import { type Product } from '@/lib/types';
 
 import { inventoryTableColumns } from './table-columns';
 
 export const InventoryTable = async () => {
-  const products = await getProducts();
+  const products = await ProductRepository.getMany();
 
   return (
     <DataTable

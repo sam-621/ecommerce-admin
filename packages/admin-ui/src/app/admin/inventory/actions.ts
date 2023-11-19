@@ -3,7 +3,7 @@
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
-import { removeProduct, saveProduct, updateProductSaved } from '@/lib/repository';
+import { ProductRepository } from '@/lib/repository';
 import { type Product } from '@/lib/types';
 import { uploadImage } from '@/lib/upload';
 import { getJsonFromFormData, type ServerActionResult, type StringifyObject } from '@/lib/utils';
@@ -34,7 +34,7 @@ export const createProduct = async (prevState: ServerActionResult, formData: For
     };
   }
 
-  await saveProduct(validation.data);
+  await ProductRepository.save(validation.data);
 
   revalidatePath('/admin/inventory');
   redirect(`/admin/inventory/${validation.data.slug}?isCreated=true`);
@@ -69,7 +69,7 @@ export const updateProduct = async (
     };
   }
 
-  const productUpdated = await updateProductSaved(product.id, validation.data);
+  const productUpdated = await ProductRepository.update(product.id, validation.data);
 
   revalidatePath(`/admin/inventory`);
 
@@ -79,8 +79,8 @@ export const updateProduct = async (
   };
 };
 
-export const deleteProduct = async (id: string) => {
-  await removeProduct(id);
+export const removeProduct = async (id: string) => {
+  await ProductRepository.remove(id);
 
   revalidatePath('/admin/inventory');
 };

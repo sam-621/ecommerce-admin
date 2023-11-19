@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
-import { getProductBySlug } from '@/lib/repository';
+import { ProductRepository } from '@/lib/repository';
 import { type ServerPage } from '@/lib/utils';
 
 import { UpdateProductForm } from '../components';
@@ -10,7 +10,7 @@ export default async function ProductDetailsPage({ params, searchParams }: Serve
   const slug = params.slug;
   const isCreated = !!searchParams.isCreated;
 
-  const product = await getProductBySlug(slug);
+  const product = await ProductRepository.getBySlug(slug);
 
   if (!product) {
     notFound();

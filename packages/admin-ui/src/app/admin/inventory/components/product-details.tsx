@@ -14,7 +14,7 @@ import {
 import { notification } from '@/lib/notification';
 import { type Product } from '@/lib/types';
 
-import { deleteProduct } from '../actions';
+import { removeProduct } from '../actions';
 
 export const ProductDetails: FC<Props> = ({ product }) => {
   return (
@@ -91,7 +91,7 @@ export const ProductDetails: FC<Props> = ({ product }) => {
               <span className="text-xl">Zona de peligro</span>
               <Button
                 onClick={async () => {
-                  await deleteProduct(product?.id ?? '');
+                  await removeProduct(product?.id ?? '');
                   notification.success(`Producto ${product?.name} eliminado`);
                 }}
                 variant="destructive"
