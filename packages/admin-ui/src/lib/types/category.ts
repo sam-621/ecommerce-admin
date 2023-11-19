@@ -4,7 +4,7 @@ export interface Category {
   updatedAt: Date;
   name: string;
   slug: string;
-  description: string;
-  image: string;
+  description?: string;
+  image?: string;
   enabled: boolean;
 }
