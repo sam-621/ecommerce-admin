@@ -1,0 +1,179 @@
+
+
+/* Checkbox */
+
+.form_input, .form_input:-webkit-autofill{
+  position     : absolute;
+  top          : 0;
+  left         : 0;
+  font-weight  : 600;
+  width        : 100%;
+  height       : 100%;
+  color        : hsla(201, 15%, 30%, 1);
+  // border       : 1px solid hsla(207, 22%, 80%, 1);
+  @apply border border-neutral-border;
+  border-radius: 0.5rem;
+  padding      : 0.5rem 1rem;
+  outline      : none;
+  background   : none;
+  z-index      : 1;
+ }
+ 
+ .input-container.error {
+   .form_input{
+     border: 1px solid hsla(347, 77%, 50%, 1);
+   }
+ 
+   .hint{
+     display: flex;
+   }
+ }
+
+
+ 
+ .form_label{
+   position      : absolute;
+   top           : 1.25rem;
+   left          : 1rem;
+   padding       : 0 0.25rem;
+   @apply text-neutral-light;
+  //  color         : hsla(201, 14%, 41%, 1);
+   font-size     : 0.9rem;
+   transition    : all .25s;
+   user-select   : none;
+   z-index       : 5;
+   font-weight   : normal;
+   pointer-events: none;
+ }
+ 
+ .form_input:focus + .form_label, .form_input:-webkit-autofill:focus+.form_label{
+   top        : 0.5rem;
+   left       : .8rem;
+   z-index    : 10;
+   font-weight: 500;
+   color      : hsla(201, 14%, 41%, 1);
+   font-size  : 0.8rem;
+   z-index    : 5;
+ }
+ 
+ .form_input:focus, .form_input:-webkit-autofill:focus{
+   padding   : 1.5rem 1rem 0.2rem 1rem;
+   background: none;
+   color     : hsla(201, 15%, 30%, 1);
+   z-index   : 10;
+   box-shadow: 0 0 0 4rem white inset !important;
+   z-index   : 5;
+ }
+ 
+ .form_input:not(:focus), .form_input:-webkit-autofill:not(:focus){
+   padding   : 1.5rem 1rem 0.2rem 1rem;
+   box-shadow: 0 0 0 4rem white inset !important;
+   color     : hsla(201, 15%, 30%, 1);
+   z-index   : 5;
+ }
+ 
+ .form_input:not(:placeholder-shown).form_input:not(:focus) + .form_label, .form_input:-webkit-autofill:not(:placeholder-shown).form_input:-webkit-autofill:not(:focus)+.form_label{
+     top        : 0.5rem;
+     left       : .8rem;
+     font-weight: 500;
+     font-size  : 0.8rem;
+     color      : hsla(201, 14%, 41%, 1);
+     background : none;
+     z-index    : 10;
+ }
+
+ .input-container.disabled{
+  .form_input, .form_input:-webkit-autofill{
+    box-shadow: 0 0 0 4rem hsla(207, 22%, 80%, 1) inset !important;
+  }
+  label{
+    opacity: 0.5 !important;
+  }
+ }
+
+
+ // select
+ .select-input {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  select {
+    appearance: none;
+  }
+
+  &::after {
+    pointer-events: none;
+    position: absolute;
+    content: url('/icons/down-icon.svg');
+    right: 1rem;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.add-cart-button {
+  display: flex;
+  justify-content: center;
+}
+
+.add-cart-button .icon-cart {
+  flex: 1;
+  max-width: fit-content;
+  position: absolute;
+  right: 1rem;
+  opacity: 0;
+}
+
+.add-cart-button span {
+  flex: 0;
+  min-width: fit-content;
+  text-align: left;
+}
+
+.add-cart-button:hover span {
+  flex: auto;
+}
+
+.add-cart-button:hover .icon-cart{
+  opacity: 1;
+}
+
+.add-cart-button.disabled:hover span{
+  flex: 0;
+}
+
+.add-cart-button.disabled:hover .icon-cart{
+  opacity: 0;
+}
+
+.add-cart-button.disabled{
+  cursor: not-allowed;
+}
+
+.card-product:hover{
+  .image-product{
+    transform: scale(1.05);
+  }
+}
+
+.swiper-button-next, .swiper-button-prev{
+  height: 48px;
+  width: 48px;
+  background: #fff !important;
+  border-radius: 50%;
+  box-shadow: 0px 0.5px 1.75px rgba(0, 0, 0, 0.039), 0px 1.85px 6.25px rgba(0, 0, 0, 0.19) !important;
+
+  &::after{
+    transform: scale(0.5);
+  }
+}
+
+.swiper-button-next{
+  right: 0;
+}
+
+.swiper-button-prev{
+  left: 0;
+}
