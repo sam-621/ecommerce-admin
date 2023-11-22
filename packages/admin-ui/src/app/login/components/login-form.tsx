@@ -24,7 +24,7 @@ export function LoginForm() {
               placeholder="sam_621"
               type="text"
               autoCapitalize="none"
-              errorMessage={state.fieldErrors?.username}
+              errorMessage={state?.fieldErrors?.username}
             />
           </div>
           <div className="grid gap-1">
@@ -35,16 +35,16 @@ export function LoginForm() {
               placeholder="******"
               type="password"
               autoCapitalize="none"
-              errorMessage={state.fieldErrors?.password}
+              errorMessage={state?.fieldErrors?.password}
             />
           </div>
           <FormButton>Entrar</FormButton>
           <div className="flex h-5 items-center gap-2">
-            {state.error && (
+            {state?.error && (
               <>
                 <AlertCircleIcon className="h-5 w-5 text-red-500" />
                 <p aria-live="polite" className="text-sm text-red-500">
-                  {state.message}
+                  {state?.message}
                 </p>
               </>
             )}

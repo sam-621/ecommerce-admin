@@ -6,6 +6,7 @@ import {
   CardContent,
   Dropzone,
   Input,
+  Label,
   Select,
   SelectItem,
   Textarea
@@ -36,6 +37,19 @@ export const CategoryDetails: FC<Props> = ({ category }) => {
             <Dropzone name="image" defaultValue={category?.image} />
           </CardContent>
         </Card>
+
+        {category?.id && (
+          <Card>
+            <CardContent className="flex flex-col gap-4 p-4">
+              <div className="flex items-center justify-between">
+                <Label>Productos</Label>
+                <Button variant={'secondary'} className="w-fit" type="button">
+                  Agregar producto
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
 
         {category?.id && (
           <Card>

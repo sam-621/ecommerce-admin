@@ -1,7 +1,7 @@
 import { type Prisma } from '@prisma/client';
 
-import { type Category } from '../types';
-import { getCategoryMapped } from './mappers';
+import { type Category, type Product } from '../types';
+import { getCategoryMapped, getProductMapped } from './mappers';
 import { prisma } from './prisma';
 
 const getMany = async (): Promise<(Category & { items: number })[]> => {
@@ -25,6 +25,23 @@ const getBySlug = async (slug: string): Promise<Category | null> => {
   });
 
   return !category ? null : getCategoryMapped(category);
+};
+
+const getProductsOnCategory = async (id: string): Promise<Product[]> => {
+  const category = await prisma.category.findUnique({
+    where: {
+      id
+    },
+    include: {
+      products: {
+        include: {
+          product: true
+        }
+      }
+    }
+  });
+
+  return category?.products.map(p => getProductMapped(p.product)) ?? [];
 };
 
 const save = async (input: Prisma.CategoryCreateInput): Promise<Category> => {
@@ -51,6 +68,7 @@ const remove = async (id: string): Promise<void> => {
 export const CategoryRepository = {
   getMany,
   getBySlug,
+  getProductsOnCategory,
   save,
   update,
   remove
