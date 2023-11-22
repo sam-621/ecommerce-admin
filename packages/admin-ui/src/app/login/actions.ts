@@ -44,7 +44,7 @@ export const authenticate = async (prevState: ServerActionResult, formData: Form
   }
 
   await saveJWT(username);
-  redirect('/admin');
+  redirect('/admin/inventory');
 };
 
 export const logout = () => {

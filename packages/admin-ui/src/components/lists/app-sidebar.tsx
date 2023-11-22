@@ -1,11 +1,4 @@
-import {
-  BarChart2Icon,
-  BoxesIcon,
-  PackageIcon,
-  SettingsIcon,
-  ShoppingCartIcon,
-  UserIcon
-} from 'lucide-react';
+import { BoxesIcon, PackageIcon } from 'lucide-react';
 import { type FC } from 'react';
 
 import { AppSidebarItem } from '../items';
@@ -19,15 +12,9 @@ export const AppSidebar: FC<Props> = async ({ className }) => {
           <h2 className="text-lg font-semibold tracking-tight pl-4">Catalgo</h2>
           <div className="flex flex-col gap-1">
             <AppSidebarItem
-              href="/admin"
-              icon={<BarChart2Icon className="flex-shrink-0" size={16} />}
-              text="Dashboard"
-            />
-
-            <AppSidebarItem
               href="/admin/inventory"
               icon={<PackageIcon className="flex-shrink-0" size={16} />}
-              text="Inventory"
+              text="Inventario"
             />
 
             <AppSidebarItem
@@ -37,7 +24,7 @@ export const AppSidebar: FC<Props> = async ({ className }) => {
             />
           </div>
         </div>
-        <div className="flex flex-col gap-2">
+        {/* <div className="flex flex-col gap-2">
           <h2 className="text-lg font-semibold tracking-tight pl-4">Ventas</h2>
           <div className="flex flex-col gap-1">
             <AppSidebarItem
@@ -52,14 +39,14 @@ export const AppSidebar: FC<Props> = async ({ className }) => {
               text="Customers"
             />
           </div>
-        </div>
+        </div> */}
       </div>
 
-      <AppSidebarItem
+      {/* <AppSidebarItem
         href="/admin/setting"
         icon={<SettingsIcon className="flex-shrink-0" size={16} />}
         text="Settings"
-      />
+      /> */}
     </aside>
   );
 };

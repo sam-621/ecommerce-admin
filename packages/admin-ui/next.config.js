@@ -6,7 +6,7 @@ const nextConfig = {
   redirects: () => [
     {
       source: '/',
-      destination: '/admin',
+      destination: '/admin/inventory',
       permanent: false
     }
   ]
