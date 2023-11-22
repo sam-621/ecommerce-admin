@@ -8,5 +8,5 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
   },
-  "cSpell.words": ["CLOUDINARY", "sonner"]
+  "cSpell.words": ["CLOUDINARY", "sonner", "vendyx"]
 }
