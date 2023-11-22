@@ -44,6 +44,28 @@ const getProductsOnCategory = async (id: string): Promise<Product[]> => {
   return category?.products.map(p => getProductMapped(p.product)) ?? [];
 };
 
+const getProductsOnCategories = async () => {
+  const result = await prisma.productOnCategory.findMany({
+    include: {
+      category: {
+        select: {
+          id: true,
+          name: true
+        }
+      },
+      product: true
+    }
+  });
+
+  return result.map(r => ({
+    ...getProductMapped(r.product),
+    category: {
+      id: r.category.id,
+      name: r.category.name
+    }
+  }));
+};
+
 const save = async (input: Prisma.CategoryCreateInput): Promise<Category> => {
   const categorySaved = await prisma.category.create({
     data: input
@@ -69,6 +91,7 @@ export const CategoryRepository = {
   getMany,
   getBySlug,
   getProductsOnCategory,
+  getProductsOnCategories,
   save,
   update,
   remove
