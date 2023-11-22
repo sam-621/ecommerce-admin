@@ -115,7 +115,7 @@ export const ProductDetails: FC<Props> = ({ product }) => {
                   ? 'enabled'
                   : 'disabled'
               }
-              name="state"
+              name="enabled"
               placeholder="Estado"
               label="Estado"
             >
