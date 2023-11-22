@@ -1,3 +1,4 @@
+import { useRouter } from 'next/navigation';
 import { type FC } from 'react';
 
 import {
@@ -17,6 +18,7 @@ import { type Product } from '@/lib/types';
 import { removeProduct } from '../actions';
 
 export const ProductDetails: FC<Props> = ({ product }) => {
+  const { push } = useRouter();
   return (
     <section className="grid grid-cols-[2fr,1fr] gap-6">
       <div className="flex flex-col gap-6">
@@ -93,6 +95,7 @@ export const ProductDetails: FC<Props> = ({ product }) => {
                 onClick={async () => {
                   await removeProduct(product?.id ?? '');
                   notification.success(`Producto ${product?.name} eliminado`);
+                  push('/admin/inventory');
                 }}
                 variant="destructive"
                 className="w-fit"

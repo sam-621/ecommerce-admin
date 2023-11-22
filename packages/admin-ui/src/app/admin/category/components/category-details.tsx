@@ -1,3 +1,4 @@
+import { useRouter } from 'next/navigation';
 import { type FC } from 'react';
 
 import {
@@ -11,9 +12,14 @@ import {
   SelectItem,
   Textarea
 } from '@/components/theme';
+import { notification } from '@/lib/notification';
 import { type Category } from '@/lib/types';
 
+import { removeCategory } from '../actions';
+
 export const CategoryDetails: FC<Props> = ({ category }) => {
+  const { push } = useRouter();
+
   return (
     <section className="grid grid-cols-[2fr,1fr] gap-6">
       <div className="flex flex-col gap-6">
@@ -56,10 +62,11 @@ export const CategoryDetails: FC<Props> = ({ category }) => {
             <CardContent className="flex flex-col gap-4 p-4">
               <span className="text-xl">Zona de peligro</span>
               <Button
-                // onClick={async () => {
-                //   await removeProduct(product?.id ?? '');
-                //   notification.success(`Producto ${product?.name} eliminado`);
-                // }}
+                onClick={async () => {
+                  await removeCategory(category?.id ?? '');
+                  push('/admin/category');
+                  notification.success(`Categoría ${category?.name} eliminada`);
+                }}
                 variant="destructive"
                 className="w-fit"
                 type="button"

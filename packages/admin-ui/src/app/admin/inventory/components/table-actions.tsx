@@ -7,12 +7,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger
 } from '@/components/theme';
 import { notification } from '@/lib/notification';
@@ -22,7 +16,6 @@ import { type TableProduct } from './inventory-table';
 
 export const InventoryTableActions: FC<Props> = ({ row }) => {
   const product: TableProduct = row.original;
-  const productState = product.enabled ? 'enabled' : 'disabled';
 
   return (
     <DropdownMenu>
@@ -33,19 +26,6 @@ export const InventoryTableActions: FC<Props> = ({ row }) => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
-        <DropdownMenuItem>Editar</DropdownMenuItem>
-        <DropdownMenuItem>Copiar SKU</DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuSub>
-          <DropdownMenuSubTrigger>Estado</DropdownMenuSubTrigger>
-          <DropdownMenuSubContent>
-            <DropdownMenuRadioGroup value={productState}>
-              <DropdownMenuRadioItem value={'enabled'}>Habilitado</DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value={'disabled'}>Desabilitado</DropdownMenuRadioItem>
-            </DropdownMenuRadioGroup>
-          </DropdownMenuSubContent>
-        </DropdownMenuSub>
-        <DropdownMenuSeparator />
         <DropdownMenuItem
           onClick={async () => {
             const id = notification.loading(`Eliminando producto ${product.name}`);

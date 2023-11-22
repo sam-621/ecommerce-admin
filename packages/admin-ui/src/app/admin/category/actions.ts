@@ -70,3 +70,9 @@ export const updateCategory = async (
     message: `Categoría ${productUpdated.name} actualizada`
   };
 };
+
+export const removeCategory = async (id: string) => {
+  await CategoryRepository.remove(id);
+
+  revalidatePath('/admin/category');
+};
