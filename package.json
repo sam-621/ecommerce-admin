@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "prepare": "yarn husky install && chmod ug+x .husky/*",
+    "dev": "lerna run dev --stream",
     "lint": "lerna run lint",
     "format": "lerna run format"
   },

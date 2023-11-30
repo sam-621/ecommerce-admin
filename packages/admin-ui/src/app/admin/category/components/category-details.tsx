@@ -1,3 +1,5 @@
+'use client';
+
 import { useRouter } from 'next/navigation';
 import { type FC } from 'react';
 
@@ -5,6 +7,7 @@ import {
   Button,
   Card,
   CardContent,
+  Dialog,
   Dropzone,
   Input,
   Label,
@@ -49,9 +52,15 @@ export const CategoryDetails: FC<Props> = ({ category }) => {
             <CardContent className="flex flex-col gap-4 p-4">
               <div className="flex items-center justify-between">
                 <Label>Productos</Label>
-                <Button variant={'secondary'} className="w-fit" type="button">
-                  Agregar producto
-                </Button>
+                <Dialog
+                  trigger={{ text: 'Agregar producto', variant: 'secondary' }}
+                  header={{
+                    title: 'Agregar productos',
+                    description: `Agrega productos a ${category.name}`
+                  }}
+                >
+                  <Input placeholder="Encontrar productos" />
+                </Dialog>
               </div>
             </CardContent>
           </Card>

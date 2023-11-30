@@ -7,6 +7,7 @@ export * from './button-link';
 export * from './card';
 export * from './checkbox';
 export * from './data-table';
+export * from './dialog';
 export * from './dropdown-menu';
 export * from './dropzone';
 export * from './input';
