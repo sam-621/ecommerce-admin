@@ -7,12 +7,12 @@ import { useFormState } from 'react-dom';
 import { FormButton } from '@/components/forms';
 import { Alert } from '@/components/theme';
 import { notification } from '@/lib/notification';
-import { type Category } from '@/lib/types';
+import { type Category, type ProductWithCategories } from '@/lib/types';
 
 import { updateCategory } from '../actions';
 import { CategoryDetails } from './category-details';
 
-export const UpdateCategoryForm: FC<Props> = ({ category, headerMessage }) => {
+export const UpdateCategoryForm: FC<Props> = ({ category, products, headerMessage }) => {
   const updateProductWithId = updateCategory.bind(null, category);
 
   const [code, action] = useFormState(updateProductWithId, { error: false, message: '' });
@@ -48,7 +48,7 @@ export const UpdateCategoryForm: FC<Props> = ({ category, headerMessage }) => {
           variant={'success'}
         />
       )}
-      <CategoryDetails category={category} />
+      <CategoryDetails category={category} products={products} />
     </form>
   );
 };
@@ -59,4 +59,5 @@ type Props = {
     content: ReactNode;
   };
   category: Category;
+  products?: ProductWithCategories[];
 };

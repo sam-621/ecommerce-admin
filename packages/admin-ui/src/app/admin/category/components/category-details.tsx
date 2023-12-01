@@ -7,7 +7,6 @@ import {
   Button,
   Card,
   CardContent,
-  Dialog,
   Dropzone,
   Input,
   Label,
@@ -16,11 +15,12 @@ import {
   Textarea
 } from '@/components/theme';
 import { notification } from '@/lib/notification';
-import { type Category } from '@/lib/types';
+import { type Category, type ProductWithCategories } from '@/lib/types';
 
 import { removeCategory } from '../actions';
+import { AddProductModal } from './add-product-modal';
 
-export const CategoryDetails: FC<Props> = ({ category }) => {
+export const CategoryDetails: FC<Props> = ({ category, products }) => {
   const { push } = useRouter();
 
   return (
@@ -47,20 +47,15 @@ export const CategoryDetails: FC<Props> = ({ category }) => {
           </CardContent>
         </Card>
 
-        {category?.id && (
+        {category?.id && products?.length && (
           <Card>
             <CardContent className="flex flex-col gap-4 p-4">
               <div className="flex items-center justify-between">
                 <Label>Productos</Label>
-                <Dialog
-                  trigger={{ text: 'Agregar producto', variant: 'secondary' }}
-                  header={{
-                    title: 'Agregar productos',
-                    description: `Agrega productos a ${category.name}`
-                  }}
-                >
-                  <Input placeholder="Encontrar productos" />
-                </Dialog>
+                <AddProductModal
+                  category={{ id: category.id, name: category.name }}
+                  products={products}
+                />
               </div>
             </CardContent>
           </Card>
@@ -113,4 +108,5 @@ export const CategoryDetails: FC<Props> = ({ category }) => {
 
 type Props = {
   category?: Category;
+  products?: ProductWithCategories[];
 };

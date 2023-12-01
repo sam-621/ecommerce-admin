@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
-import { CategoryRepository } from '@/lib/repository';
+import { CategoryRepository, ProductRepository } from '@/lib/repository';
 import { type ServerPage } from '@/lib/utils';
 
 import { UpdateCategoryForm } from '../components';
@@ -16,13 +16,12 @@ export default async function CategoryDetailsPage({ params, searchParams }: Serv
     notFound();
   }
 
-  console.log({
-    category
-  });
+  const productWithCategory = await ProductRepository.getWithCategory();
 
   return (
     <UpdateCategoryForm
       category={category}
+      products={productWithCategory}
       headerMessage={
         isCreated
           ? {

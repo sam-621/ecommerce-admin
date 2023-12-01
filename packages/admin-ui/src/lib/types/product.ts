@@ -13,3 +13,7 @@ export interface Product {
   stock: number;
   enabled: boolean;
 }
+
+export type ProductWithCategories = Product & {
+  categories: { id: string; name: string }[];
+};

@@ -5,7 +5,7 @@ import { Cross2Icon } from '@radix-ui/react-icons';
 import * as React from 'react';
 
 import { cn } from '../utils';
-import { Button } from '.';
+import { Button } from './button';
 
 const DialogRoot = DialogPrimitive.Root;
 
