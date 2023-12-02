@@ -1,3 +1,5 @@
+'use client';
+
 import { type FC } from 'react';
 
 import { type Product } from '@/lib/types';
@@ -7,9 +9,9 @@ import { Carousel } from '../theme/carousel';
 
 export const ProductsCarousel: FC<Props> = ({ products }) => {
   return (
-    <Carousel>
+    <Carousel className="flex gap-[32px]">
       {products.map(product => (
-        <Carousel.Slide key={product.id + Math.random()}>
+        <Carousel.Slide className="mr-[32px]" key={product.id + Math.random()}>
           <ProductCard product={product} />
         </Carousel.Slide>
       ))}

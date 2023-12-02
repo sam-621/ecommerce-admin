@@ -2,20 +2,21 @@ import { ProductCard } from '@/components/cards';
 import { HomeSection } from '@/components/sections';
 import { ProductRepository } from '@/lib/repositories';
 
-export const OnSaleSection = async () => {
+export const AllSection = async () => {
   const products = await ProductRepository.getMany();
-  const onSaleProducts = products.filter(product => product.comparisonPrice);
+
+  if (!products.length) return null;
 
   return (
     <HomeSection
       title={
         <>
-          En <span className="text-primary-500">Liquidación</span>
+          Todos nuestros <span className="text-primary-500">Productos</span>
         </>
       }
     >
-      <div className="grid grid-cols-1 gap-32 lg:grid-cols-2">
-        {onSaleProducts.map(product => (
+      <div className={`flex gap-[32px] ${products.length > 4 && 'overflow-x-scroll'}`}>
+        {products.map(product => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
