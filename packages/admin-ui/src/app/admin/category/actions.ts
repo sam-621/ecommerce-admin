@@ -10,6 +10,16 @@ import { getJsonFromFormData, type ServerActionResult, type StringifyObject } fr
 
 import { validateCategory } from './validators';
 
+export const removeProductsFromCategory = async (categoryId: string, productsIds: string) => {
+  await CategoryRepository.removeProduct(categoryId, productsIds);
+  revalidatePath(`/admin/category/${categoryId}`);
+};
+
+export const addProducts = async (categoryId: string, productsIds: string[]) => {
+  await CategoryRepository.addProducts(categoryId, productsIds);
+  revalidatePath(`/admin/category/${categoryId}`);
+};
+
 export const createCategory = async (prevState: ServerActionResult, formData: FormData) => {
   const input = getJsonFromFormData<StringifyObject<Category>>(formData);
   const image = input.image as unknown as File;

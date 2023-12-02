@@ -66,6 +66,26 @@ const getProductsOnCategories = async () => {
   }));
 };
 
+const addProducts = async (categoryId: string, productsIds: string[]) => {
+  await prisma.productOnCategory.createMany({
+    data: productsIds.map(productId => ({
+      categoryId,
+      productId
+    }))
+  });
+};
+
+const removeProduct = async (categoryId: string, productId: string) => {
+  await prisma.productOnCategory.delete({
+    where: {
+      productId_categoryId: {
+        categoryId,
+        productId
+      }
+    }
+  });
+};
+
 const save = async (input: Prisma.CategoryCreateInput): Promise<Category> => {
   const categorySaved = await prisma.category.create({
     data: input
@@ -92,6 +112,8 @@ export const CategoryRepository = {
   getBySlug,
   getProductsOnCategory,
   getProductsOnCategories,
+  addProducts,
+  removeProduct,
   save,
   update,
   remove

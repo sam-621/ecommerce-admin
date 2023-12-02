@@ -19,6 +19,7 @@ import { type Category, type ProductWithCategories } from '@/lib/types';
 
 import { removeCategory } from '../actions';
 import { AddProductModal } from './add-product-modal';
+import { ProductCategoryCard } from './product-category-card';
 
 export const CategoryDetails: FC<Props> = ({ category, products }) => {
   const { push } = useRouter();
@@ -56,6 +57,13 @@ export const CategoryDetails: FC<Props> = ({ category, products }) => {
                   category={{ id: category.id, name: category.name }}
                   products={products}
                 />
+              </div>
+              <div className="flex flex-col gap-4">
+                {products
+                  .filter(p => p.categories.find(c => c.id === category.id))
+                  .map(p => (
+                    <ProductCategoryCard key={p.id} product={p} category={category} />
+                  ))}
               </div>
             </CardContent>
           </Card>

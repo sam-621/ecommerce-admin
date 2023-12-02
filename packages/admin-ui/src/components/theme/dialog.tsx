@@ -13,7 +13,7 @@ const DialogTrigger = DialogPrimitive.Trigger;
 
 const DialogPortal = DialogPrimitive.Portal;
 
-const DialogClose = DialogPrimitive.Close;
+// const DialogClose = DialogPrimitive.Close;
 
 const DialogOverlay = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Overlay>,
@@ -91,7 +91,7 @@ const DialogDescription = React.forwardRef<
 ));
 DialogDescription.displayName = DialogPrimitive.Description.displayName;
 
-export const Dialog: React.FC<Props> = ({ trigger, header, children }) => {
+export const Dialog: React.FC<Props> = ({ trigger, header, footer, children }) => {
   return (
     <DialogRoot>
       <DialogTrigger asChild>
@@ -103,13 +103,7 @@ export const Dialog: React.FC<Props> = ({ trigger, header, children }) => {
           <DialogDescription>{header?.description}</DialogDescription>
         </DialogHeader>
         {children}
-        <DialogFooter className="sm:justify-start">
-          <DialogClose asChild>
-            <Button type="button" variant="secondary">
-              Close
-            </Button>
-          </DialogClose>
-        </DialogFooter>
+        {footer && <DialogFooter className={cn(footer.className)}>{footer.children}</DialogFooter>}
       </DialogContent>
     </DialogRoot>
   );
@@ -123,6 +117,10 @@ type Props = DialogPrimitive.DialogProps & {
   header?: {
     title: string;
     description: string;
+  };
+  footer?: {
+    children: React.ReactElement;
+    className?: string;
   };
   children?: React.ReactElement;
 };
