@@ -1,7 +1,8 @@
+import { type Product } from '../types';
 import { vendyxFetch } from './vendyx-fetch';
 
 const getMany = async () => {
-  const { data } = await vendyxFetch('products');
+  const { data } = await vendyxFetch<Product[]>('products');
 
   return data;
 };
