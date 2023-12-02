@@ -16,7 +16,8 @@
     "react": "^18",
     "react-dom": "^18",
     "sass": "^1.69.5",
-    "swiper": "^8.4.6"
+    "swiper": "^8.4.6",
+    "tailwind-merge": "^2.1.0"
   },
   "devDependencies": {
     "@types/node": "^20",
