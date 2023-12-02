@@ -19,6 +19,8 @@ const getBySlug = async (slug: string): Promise<Product | null> => {
 };
 
 const getWithCategory = async (): Promise<ProductWithCategories[]> => {
+  noStore();
+
   const r = await prisma.product.findMany({
     include: {
       categories: {

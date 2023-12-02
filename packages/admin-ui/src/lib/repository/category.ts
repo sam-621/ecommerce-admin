@@ -1,10 +1,13 @@
 import { type Prisma } from '@prisma/client';
+import { unstable_noStore as noStore } from 'next/cache';
 
 import { type Category, type Product } from '../types';
 import { getCategoryMapped, getProductMapped } from './mappers';
 import { prisma } from './prisma';
 
 const getMany = async (): Promise<(Category & { items: number })[]> => {
+  noStore();
+
   const categories = await prisma.category.findMany({
     include: {
       products: true
@@ -18,6 +21,8 @@ const getMany = async (): Promise<(Category & { items: number })[]> => {
 };
 
 const getBySlug = async (slug: string): Promise<Category | null> => {
+  noStore();
+
   const category = await prisma.category.findUnique({
     where: {
       slug
@@ -28,6 +33,8 @@ const getBySlug = async (slug: string): Promise<Category | null> => {
 };
 
 const getProductsOnCategory = async (id: string): Promise<Product[]> => {
+  noStore();
+
   const category = await prisma.category.findUnique({
     where: {
       id
@@ -45,6 +52,8 @@ const getProductsOnCategory = async (id: string): Promise<Product[]> => {
 };
 
 const getProductsOnCategories = async () => {
+  noStore();
+
   const result = await prisma.productOnCategory.findMany({
     include: {
       category: {
