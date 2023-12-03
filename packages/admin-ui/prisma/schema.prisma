@@ -70,7 +70,7 @@ model ProductOnCategory {
 
 model OrderLine {
   id        String   @id @default(uuid())
-  ceatedAt  DateTime @default(now()) @map("created_at")
+  createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
   /// Unit price of the product of the current line
   unitPrice Decimal  @map("unit_price") @db.Decimal(10, 2)
@@ -99,7 +99,7 @@ model Order {
   /// order lines total less discounts
   subtotal      Decimal     @db.Decimal(10, 2)
   /// The date and time when a payment has been addet to the order
-  colocatedAt   DateTime    @map("colocated_at")
+  collocatedAt  DateTime    @map("colocated_at")
   /// Total product quantity
   totalQuantity Int         @map("total_quantity")
 
