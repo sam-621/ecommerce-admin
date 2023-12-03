@@ -7,6 +7,13 @@ const getMany = async () => {
   return data;
 };
 
+export const getBySlug = async (slug: string) => {
+  const { data } = await vendyxFetch<Product>(`products/${slug}`);
+
+  return data;
+};
+
 export const ProductRepository = {
-  getMany
+  getMany,
+  getBySlug
 };

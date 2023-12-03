@@ -13,7 +13,7 @@ export const ProductCard: FC<Props> = ({ product, isHorizontal }) => {
 
   return (
     <Link
-      href={`/producto/${product.slug}`}
+      href={`/product/${product.slug}`}
       className="card-product flex-card flex rounded-xl border border-neutral-border h-full bg-neutral-white"
     >
       <article className={`flex w-full ${isHorizontal ? 'flex-col md:flex-row' : 'flex-col'}`}>
