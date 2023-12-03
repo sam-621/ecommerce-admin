@@ -4,3 +4,8 @@ type FetchResponse<T> = {
   data: T;
   message: string[];
 };
+
+export type ServerPage = {
+  params: { slug: string };
+  searchParams: Record<string, string | string[] | undefined>;
+};
