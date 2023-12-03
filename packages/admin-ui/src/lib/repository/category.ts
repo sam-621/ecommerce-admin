@@ -51,6 +51,25 @@ const getProductsOnCategory = async (id: string): Promise<Product[]> => {
   return category?.products.map(p => getProductMapped(p.product)) ?? [];
 };
 
+const getProductsOnCategoryBySlug = async (slug: string): Promise<Product[]> => {
+  noStore();
+
+  const category = await prisma.category.findUnique({
+    where: {
+      slug
+    },
+    include: {
+      products: {
+        include: {
+          product: true
+        }
+      }
+    }
+  });
+
+  return category?.products.map(p => getProductMapped(p.product)) ?? [];
+};
+
 const getProductsOnCategories = async () => {
   noStore();
 
@@ -121,6 +140,7 @@ export const CategoryRepository = {
   getBySlug,
   getProductsOnCategory,
   getProductsOnCategories,
+  getProductsOnCategoryBySlug,
   addProducts,
   removeProduct,
   save,

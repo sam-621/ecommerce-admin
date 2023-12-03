@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { type FC } from 'react';
 
 import { type Product } from '@/lib/types';
+import { getFormattedPrice } from '@/lib/utils';
 
 import { FilledButton } from '../theme/button';
 
@@ -25,7 +26,8 @@ export const ProductCard: FC<Props> = ({ product, isHorizontal }) => {
             height="300"
             width="400"
             alt={product.name}
-            src={product.image ?? '/images/placeholder.png'}
+            // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+            src={product.image || '/images/product/default-product.png'}
             className="image-product object-cover hover:scale-105 transition-all"
           />
         </div>
@@ -38,12 +40,12 @@ export const ProductCard: FC<Props> = ({ product, isHorizontal }) => {
             <div className="flex-grow">
               <h3 className="mb-8 text-neutral-title text-20 font-semibold">{product.name}</h3>
             </div>
-            {product.comparisonPrice && (
+            {Boolean(product.comparisonPrice) && (
               <div className="flex gap-8 items-center mb-8">
                 <h5 className="text-neutral-lighter font-medium text-base">
-                  <s>${product.comparisonPrice ?? 0}</s>
+                  <s>{getFormattedPrice(product.comparisonPrice ?? 0)}</s>
                 </h5>
-                {product.comparisonPrice && (
+                {Boolean(product.comparisonPrice) && (
                   <p className="w-fit h-20 items-center inline-flex uppercase tracking-wider text-10 bg-error-500 px-8 py-[2px] rounded-full text-neutral-white font-extrabold">
                     En oferta
                   </p>
@@ -51,7 +53,7 @@ export const ProductCard: FC<Props> = ({ product, isHorizontal }) => {
               </div>
             )}
             <div className="flex items-center gap-16">
-              <h4 className="mb-12 text-32 font-bold">${product.price}</h4>
+              <h4 className="mb-12 text-32 font-bold">{getFormattedPrice(product.price)}</h4>
             </div>
           </div>
           <div>

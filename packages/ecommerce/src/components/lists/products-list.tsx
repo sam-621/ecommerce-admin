@@ -6,7 +6,7 @@ import { ProductCard } from '../cards';
 
 export const ProductsList: FC<Props> = ({ products }) => {
   return (
-    <section className="grid md:grid-cols-3 h-fit gap-32">
+    <section className="grid grid-cols-[repeat(auto-fill, minmax(200px, 1fr))] md:grid-cols-3 h-fit gap-32">
       {products.map(product => (
         <ProductCard key={product.id} product={product} />
       ))}

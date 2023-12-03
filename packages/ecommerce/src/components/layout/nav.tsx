@@ -19,7 +19,7 @@ export const Nav = async () => {
             {categories?.map(category => (
               <Link
                 key={category.slug}
-                href={`/categoria/${category.slug}`}
+                href={`/category/${category.slug}`}
                 className="flex text-14 font-semibold text-neutral-light hover:text-neutral-title transition-all"
               >
                 {category.name}

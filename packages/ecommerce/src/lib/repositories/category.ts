@@ -1,4 +1,4 @@
-import { type Category } from '../types';
+import { type Category, type Product } from '../types';
 import { vendyxFetch } from './vendyx-fetch';
 
 const getMany = async () => {
@@ -10,13 +10,20 @@ const getMany = async () => {
   return data;
 };
 
-const getProductOnCategories = async () => {
+const getProductWithCategories = async () => {
   const { data } = await vendyxFetch('categories?products=true');
+
+  return data;
+};
+
+const getProductsBySlug = async (slug: string) => {
+  const { data } = await vendyxFetch<Product[]>(`category/${slug}`);
 
   return data;
 };
 
 export const CategoryRepository = {
   getMany,
-  getProductOnCategories
+  getProductsBySlug,
+  getProductWithCategories
 };
