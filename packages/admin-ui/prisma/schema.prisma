@@ -99,7 +99,7 @@ model Order {
   /// order lines total less discounts
   subtotal      Decimal     @db.Decimal(10, 2)
   /// The date and time when a payment has been addet to the order
-  collocatedAt  DateTime    @map("colocated_at")
+  collocatedAt  DateTime?   @map("colocated_at")
   /// Total product quantity
   totalQuantity Int         @map("total_quantity")
 
@@ -119,7 +119,7 @@ model Customer {
   updatedAt        DateTime @updatedAt @map("updated_at")
   firstName        String?  @map("first_name") @db.VarChar(255)
   lastName         String   @map("last_name") @db.VarChar(255)
-  email            String   @db.VarChar(255)
+  email            String   @unique @db.VarChar(255)
   phoneNumber      String?  @map("phone_number") @db.VarChar(15)
   phoneCountryCode String?  @map("phone_country_code") @db.Char(2)
   enabled          Boolean  @default(true)

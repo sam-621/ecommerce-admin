@@ -18,6 +18,12 @@ const getBySlug = async (slug: string): Promise<Product | null> => {
   return !product ? null : getProductMapped(product);
 };
 
+const getByID = async (id: string): Promise<Product | null> => {
+  const product = await prisma.product.findUnique({ where: { id } });
+
+  return !product ? null : getProductMapped(product);
+};
+
 const getWithCategory = async (): Promise<ProductWithCategories[]> => {
   noStore();
 
@@ -69,6 +75,7 @@ const remove = async (id: string): Promise<void> => {
 export const ProductRepository = {
   getMany,
   getBySlug,
+  getByID,
   getWithCategory,
   save,
   update,
