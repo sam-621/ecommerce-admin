@@ -15,39 +15,42 @@ import { LS_ORDER_ID } from '../utils';
 
 type ContextSchema = {
   order: Order | null;
-  addLine: (productId: string, quantity: number) => void;
+
+  addLine: (productId: string, quantity: number) => Promise<void>;
 };
 
 const initialOrder: ContextSchema = {
   order: null,
-  addLine: () => {}
+  addLine: async () => {}
 };
 
 export const OrderContext = createContext(initialOrder);
 
 export const OrderProvider: FC<Props> = ({ children }) => {
   const [order, setOrder] = useState<Order | null>(null);
-  const [orderFetchControl, setOrderFetchControl] = useState<number>(0);
 
-  const refetchOrder = () => {
-    setOrderFetchControl(orderFetchControl + 1);
+  const refetchOrder = async () => {
+    const orderId = localStorage.getItem(LS_ORDER_ID);
+
+    if (!orderId) {
+      return;
+    }
+
+    const order = await OrderRepository.getById(orderId);
+
+    if (!order) {
+      localStorage.setItem(LS_ORDER_ID, '');
+      return;
+    }
+
+    setOrder(order);
   };
 
   // fetch order in every first render
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    (async () => {
-      const orderId = localStorage.getItem(LS_ORDER_ID);
-
-      if (!orderId) {
-        return;
-      }
-
-      const order = await OrderRepository.getById(orderId);
-
-      setOrder(order);
-    })();
-  }, [orderFetchControl]);
+    refetchOrder();
+  }, []);
 
   const addLine = async (productId: string, quantity: number) => {
     let orderId = localStorage.getItem(LS_ORDER_ID);
@@ -57,7 +60,7 @@ export const OrderProvider: FC<Props> = ({ children }) => {
     }
 
     await OrderRepository.addLine({ orderId, productId, quantity });
-    refetchOrder();
+    await refetchOrder();
   };
 
   const createOrder = async () => {

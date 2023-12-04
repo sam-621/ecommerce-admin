@@ -17,7 +17,7 @@ export const POST = async (req: Request) => {
 
   const unitPrice = product.price;
 
-  const order = await OrdersRepository.createLine({
+  const orderLine = await OrdersRepository.createLine({
     linePrice: unitPrice * body.quantity,
     quantity: body.quantity,
     unitPrice,
@@ -33,5 +33,11 @@ export const POST = async (req: Request) => {
     }
   });
 
-  return Response.json(new RouteResponse(order, ['OK']));
+  await OrdersRepository.update(body.orderId, {
+    subtotal: orderLine.order.subtotal.toNumber() + orderLine.linePrice.toNumber(),
+    total: orderLine.order.total.toNumber() + orderLine.linePrice.toNumber(),
+    totalQuantity: orderLine.order.totalQuantity + body.quantity
+  });
+
+  return Response.json(new RouteResponse(orderLine, ['OK']));
 };
