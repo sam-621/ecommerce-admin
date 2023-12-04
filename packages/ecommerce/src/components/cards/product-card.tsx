@@ -1,4 +1,3 @@
-import { ShoppingCartIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { type FC } from 'react';
@@ -6,11 +5,9 @@ import { type FC } from 'react';
 import { type Product } from '@/lib/types';
 import { getFormattedPrice } from '@/lib/utils';
 
-import { FilledButton } from '../theme/button';
+import { AddToCartButton } from '../cart';
 
 export const ProductCard: FC<Props> = ({ product, isHorizontal }) => {
-  const buttonText = product.stock ? 'Agregar al carrito' : 'Agotado';
-
   return (
     <Link
       href={`/product/${product.slug}`}
@@ -57,10 +54,7 @@ export const ProductCard: FC<Props> = ({ product, isHorizontal }) => {
             </div>
           </div>
           <div>
-            <FilledButton disabled={!product.stock}>
-              <span className=" transition-all duration-500">{buttonText}</span>
-              <ShoppingCartIcon className="h-24 w-24 icon-cart ease-in-out duration-500 delay-50" />
-            </FilledButton>
+            <AddToCartButton productId={product.id} quantity={1} stock={product.stock} />
           </div>
         </div>
       </article>

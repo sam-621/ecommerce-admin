@@ -1,6 +1,13 @@
 'use client';
 
-import { createContext, type FC, type PropsWithChildren, useEffect, useState } from 'react';
+import {
+  createContext,
+  type FC,
+  type PropsWithChildren,
+  useContext,
+  useEffect,
+  useState
+} from 'react';
 
 import { OrderRepository } from '../repositories';
 import { type Order } from '../types';
@@ -64,3 +71,5 @@ export const OrderProvider: FC<Props> = ({ children }) => {
 };
 
 type Props = PropsWithChildren;
+
+export const useOrderContext = () => useContext(OrderContext);
