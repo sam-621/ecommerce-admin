@@ -1,4 +1,4 @@
-import { CheckoutResume } from './components';
+import { CheckoutResume, ContactInformationForm } from './components';
 
 export default function CheckoutPage() {
   return (
@@ -6,6 +6,7 @@ export default function CheckoutPage() {
       <div className="py-32 lg:px-48">
         <div className="flex flex-col gap-6 bg-neutral-white border border-neutral-border rounded-2xl py-6 px-16 lg:bg-none lg:border-none">
           {/* {Forms[step]} */}
+          <ContactInformationForm />
         </div>
         {/* <div className=" py-6 px-16 flex flex-col gap-6">
           {!isInContactInfo && (
