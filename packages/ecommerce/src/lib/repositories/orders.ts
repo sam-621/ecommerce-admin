@@ -15,8 +15,16 @@ const addLine = async (input: { productId: string; quantity: number; orderId: st
   await vendyxFetch<Order>(`order/line`, { body: JSON.stringify(input), method: 'POST' });
 };
 
+const removeLine = async (input: { lineId: string }) => {
+  await vendyxFetch<Order>(`order/line/delete`, {
+    body: JSON.stringify(input),
+    method: 'POST'
+  });
+};
+
 export const OrderRepository = {
   getById,
   create,
-  addLine
+  addLine,
+  removeLine
 };

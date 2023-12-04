@@ -1,4 +1,5 @@
 import { type Order, type OrderLine, type Product } from '@prisma/client';
+import { Decimal } from '@prisma/client/runtime/library';
 
 import { ProductRepository } from '@/lib/repository';
 import { OrdersRepository } from '@/lib/repository/order';
@@ -28,25 +29,26 @@ export const POST = async (req: Request) => {
   // check if the product is already in the order
   const orderLineAlreadyCreated = order.lines.find(line => line.product.id === body.productId);
 
-  let orderLine: OrderLine & {
+  let newOrderLine: OrderLine & {
     order: Order;
     product: Product;
   };
+  const marginToAdd = product.price * body.quantity;
 
   // if the product is already in the order
   // just update the quantity and price of that order line
   if (orderLineAlreadyCreated) {
-    orderLine = await OrdersRepository.updateLine(orderLineAlreadyCreated.id, {
+    newOrderLine = await OrdersRepository.updateLine(orderLineAlreadyCreated.id, {
       quantity: orderLineAlreadyCreated.quantity + body.quantity,
-      linePrice: orderLineAlreadyCreated.linePrice.toNumber() + product.price * body.quantity
+      linePrice: orderLineAlreadyCreated.linePrice.toNumber() + marginToAdd
     });
   } else {
     // if the product is not in the order
     // create a new order line
     const unitPrice = product.price;
 
-    orderLine = await OrdersRepository.createLine({
-      linePrice: unitPrice * body.quantity,
+    newOrderLine = await OrdersRepository.createLine({
+      linePrice: marginToAdd,
       quantity: body.quantity,
       unitPrice,
       order: {
@@ -62,36 +64,16 @@ export const POST = async (req: Request) => {
     });
   }
 
+  console.log({
+    orderLine: newOrderLine
+  });
+
   // update order subtotal, total and totalQuantity
-  await OrdersRepository.update(body.orderId, {
-    subtotal: orderLine.order.subtotal.toNumber() + orderLine.linePrice.toNumber(),
-    total: orderLine.order.total.toNumber() + orderLine.linePrice.toNumber(),
-    totalQuantity: orderLine.order.totalQuantity + body.quantity
+  const newOrder = await OrdersRepository.update(body.orderId, {
+    subtotal: new Decimal(order.subtotal.toNumber() + marginToAdd),
+    total: new Decimal(order.total.toNumber() + marginToAdd),
+    totalQuantity: newOrderLine.order.totalQuantity + body.quantity
   });
 
-  return Response.json(new RouteResponse(orderLine, ['OK']));
-};
-
-export const DELETE = async (req: Request) => {
-  const body = (await req.json()) as unknown as {
-    lineId: string;
-  };
-
-  const orderLine = await OrdersRepository.getLineById(body.lineId);
-
-  if (!orderLine) {
-    return Response.json(new RouteResponse(null, ['Order line not found']));
-  }
-
-  await OrdersRepository.deleteLine(orderLine.id);
-
-  const order = orderLine.order;
-
-  await OrdersRepository.update(order.id, {
-    subtotal: order.subtotal.toNumber() - orderLine.linePrice.toNumber(),
-    total: order.total.toNumber() - orderLine.linePrice.toNumber(),
-    totalQuantity: order.totalQuantity - orderLine.quantity
-  });
-
-  return Response.json(new RouteResponse(orderLine, ['OK']));
+  return Response.json(new RouteResponse(newOrder, ['OK']));
 };

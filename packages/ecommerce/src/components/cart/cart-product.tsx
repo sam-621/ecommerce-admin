@@ -1,10 +1,17 @@
-import Image from 'next/image';
-import { type FC } from 'react';
+'use client';
 
+import Image from 'next/image';
+import { type FC, useState } from 'react';
+
+import { useOrderContext } from '@/lib/contexts';
 import { type OrderLine } from '@/lib/types';
 import { DEFAULT_PRODUCT_IMAGE, getFormattedPrice } from '@/lib/utils';
 
+import { TextButton } from '../theme';
+
 export const CartProduct: FC<Props> = ({ orderLine }) => {
+  const { removeLine } = useOrderContext();
+  const [isLoading, setIsLoading] = useState(false);
   const product = orderLine.product;
 
   return (
@@ -36,13 +43,17 @@ export const CartProduct: FC<Props> = ({ orderLine }) => {
             }}
             stock={Number(currentStock)}
           /> */}
-          {/* <TextButton
-            disabled={isCartProductLoading}
-            onClick={() => removeFromOrder(orderLine)}
+          <TextButton
+            disabled={isLoading}
+            onClick={async () => {
+              setIsLoading(true);
+              await removeLine(orderLine.id);
+              setIsLoading(false);
+            }}
             className="text-error-700 text-xs font-semibold"
           >
-            {isRemoving ? 'Eliminando...' : 'Eliminar'}
-          </TextButton> */}
+            {isLoading ? 'Eliminando...' : 'Eliminar'}
+          </TextButton>
         </div>
       </div>
     </article>
