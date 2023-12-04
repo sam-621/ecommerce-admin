@@ -1,8 +1,9 @@
-import { MailIcon, PhoneIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
 import { CategoryRepository } from '@/lib/repositories';
+
+import { Cart } from '../cart';
 
 export const Nav = async () => {
   const categories = await CategoryRepository.getMany();
@@ -28,7 +29,10 @@ export const Nav = async () => {
           </div>
         </div>
 
-        <div>
+        <Cart />
+
+        {/* Only in checkout page */}
+        {/* <div>
           <div className="flex items-center gap-6">
             <Link
               href="tel:4412772289"
@@ -76,7 +80,7 @@ export const Nav = async () => {
               <span className="font-semibold text-sm">Ayuda</span>
             </Link>
           </div>
-        </div>
+        </div> */}
       </div>
     </header>
   );
