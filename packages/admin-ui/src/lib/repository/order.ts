@@ -1,6 +1,5 @@
 import { type Prisma } from '@prisma/client';
 
-import { getOrderMapped } from './mappers';
 import { prisma } from './prisma';
 
 const getById = async (id: string) => {
@@ -16,7 +15,7 @@ const getById = async (id: string) => {
     }
   });
 
-  return !order ? null : getOrderMapped(order);
+  return !order ? null : order;
 };
 
 const create = async (input: Prisma.OrderCreateInput) => {
@@ -33,18 +32,6 @@ const create = async (input: Prisma.OrderCreateInput) => {
   });
 
   return orderSaved;
-};
-
-const createLine = async (input: Prisma.OrderLineCreateInput) => {
-  const orderLine = await prisma.orderLine.create({
-    data: input,
-    include: {
-      order: true,
-      product: true
-    }
-  });
-
-  return orderLine;
 };
 
 const addCustomer = async (id: string, input: Prisma.CustomerCreateInput) => {
@@ -88,10 +75,58 @@ const update = async (id: string, input: Prisma.OrderUpdateInput) => {
   return orderUpdated;
 };
 
+const createLine = async (input: Prisma.OrderLineCreateInput) => {
+  const orderLine = await prisma.orderLine.create({
+    data: input,
+    include: {
+      order: true,
+      product: true
+    }
+  });
+
+  return orderLine;
+};
+
+const updateLine = async (id: string, input: Prisma.OrderLineUpdateInput) => {
+  const orderLine = await prisma.orderLine.update({
+    where: { id },
+    data: input,
+    include: {
+      order: true,
+      product: true
+    }
+  });
+
+  return orderLine;
+};
+
+const deleteLine = async (id: string) => {
+  const orderLine = await prisma.orderLine.delete({
+    where: { id }
+  });
+
+  return orderLine;
+};
+
+const getLineById = async (id: string) => {
+  const orderLine = await prisma.orderLine.findUnique({
+    where: { id },
+    include: {
+      product: true,
+      order: true
+    }
+  });
+
+  return orderLine;
+};
+
 export const OrdersRepository = {
   getById,
   create,
   createLine,
   addCustomer,
+  deleteLine,
+  updateLine,
+  getLineById,
   update
 };

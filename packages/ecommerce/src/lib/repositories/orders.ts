@@ -12,7 +12,7 @@ const create = async () => {
 };
 
 const addLine = async (input: { productId: string; quantity: number; orderId: string }) => {
-  await vendyxFetch<Order>(`order/add-line`, { body: JSON.stringify(input), method: 'POST' });
+  await vendyxFetch<Order>(`order/line`, { body: JSON.stringify(input), method: 'POST' });
 };
 
 export const OrderRepository = {

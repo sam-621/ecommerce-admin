@@ -24,6 +24,7 @@ export const CartProduct: FC<Props> = ({ orderLine }) => {
           {getFormattedPrice(product.price)}
         </span>
         <div className="flex justify-between">
+          <span>Cantidad: {orderLine.quantity}</span>
           {/* <StockSelect
             disabled={isUpdating}
             quantity={orderQuantity}
