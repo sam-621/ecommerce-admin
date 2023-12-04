@@ -3,7 +3,12 @@ import { OrdersRepository } from '@/lib/repository/order';
 import { RouteResponse } from '@/lib/utils';
 
 export const POST = async (req: Request) => {
-  const body = req.body as unknown as { productId: string; quantity: number; orderId: string };
+  const body = (await req.json()) as unknown as {
+    productId: string;
+    quantity: number;
+    orderId: string;
+  };
+
   const product = await ProductRepository.getByID(body.productId);
 
   if (!product) {
@@ -12,7 +17,7 @@ export const POST = async (req: Request) => {
 
   const unitPrice = product.price;
 
-  const products = await OrdersRepository.createLine({
+  const order = await OrdersRepository.createLine({
     linePrice: unitPrice * body.quantity,
     quantity: body.quantity,
     unitPrice,
@@ -28,5 +33,5 @@ export const POST = async (req: Request) => {
     }
   });
 
-  return Response.json(new RouteResponse(products, ['OK']));
+  return Response.json(new RouteResponse(order, ['OK']));
 };

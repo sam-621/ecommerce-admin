@@ -1,34 +1,53 @@
 import { type Prisma } from '@prisma/client';
 
-import { type Order, type OrderLine } from '../types';
-import { getOrderLineMapped, getOrderMapped } from './mappers';
+import { getOrderMapped } from './mappers';
 import { prisma } from './prisma';
 
-const getById = async (id: string): Promise<Order | null> => {
+const getById = async (id: string) => {
   const order = await prisma.order.findUnique({
-    where: { id }
+    where: { id },
+    include: {
+      lines: {
+        include: {
+          product: true
+        }
+      },
+      customer: true
+    }
   });
 
   return !order ? null : getOrderMapped(order);
 };
 
-const create = async (input: Prisma.OrderCreateInput): Promise<Order> => {
+const create = async (input: Prisma.OrderCreateInput) => {
   const orderSaved = await prisma.order.create({
-    data: input
+    data: input,
+    include: {
+      lines: {
+        include: {
+          product: true
+        }
+      },
+      customer: true
+    }
   });
 
-  return getOrderMapped(orderSaved);
+  return orderSaved;
 };
 
-const createLine = async (input: Prisma.OrderLineCreateInput): Promise<OrderLine> => {
-  const orderLineMapped = await prisma.orderLine.create({
-    data: input
+const createLine = async (input: Prisma.OrderLineCreateInput) => {
+  const orderLine = await prisma.orderLine.create({
+    data: input,
+    include: {
+      order: true,
+      product: true
+    }
   });
 
-  return getOrderLineMapped(orderLineMapped);
+  return orderLine;
 };
 
-const addCustomer = async (id: string, input: Prisma.CustomerCreateInput): Promise<Order> => {
+const addCustomer = async (id: string, input: Prisma.CustomerCreateInput) => {
   const orderUpdated = await prisma.order.update({
     where: { id },
     data: {
@@ -38,19 +57,35 @@ const addCustomer = async (id: string, input: Prisma.CustomerCreateInput): Promi
           where: { email: input.email }
         }
       }
+    },
+    include: {
+      lines: {
+        include: {
+          product: true
+        }
+      },
+      customer: true
     }
   });
 
-  return getOrderMapped(orderUpdated);
+  return orderUpdated;
 };
 
-const update = async (id: string, input: Prisma.OrderUpdateInput): Promise<Order> => {
+const update = async (id: string, input: Prisma.OrderUpdateInput) => {
   const orderUpdated = await prisma.order.update({
     where: { id },
-    data: input
+    data: input,
+    include: {
+      lines: {
+        include: {
+          product: true
+        }
+      },
+      customer: true
+    }
   });
 
-  return getOrderMapped(orderUpdated);
+  return orderUpdated;
 };
 
 export const OrdersRepository = {

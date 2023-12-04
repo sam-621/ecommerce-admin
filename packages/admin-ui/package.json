@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --port 3001",
     "build": "yarn db:types && next build",
-    "start": "next start",
+    "start": "next start --port 3001",
     "lint": "next lint",
     "format": "prettier --write .",
     "add:component": "npx shadcn-ui@latest add ${NAME} && mv src/ui/theme/ui/${NAME}.tsx src/ui/theme/components && rm -r src/ui/theme/ui && echo \"export * from './\"$NAME\"'\" >> src/ui/theme/components/index.ts && prettier src/ui/theme/components/${NAME}.tsx --write",
