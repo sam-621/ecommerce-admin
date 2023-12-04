@@ -1,4 +1,4 @@
-import { FilledButton } from '@/components/theme';
+import { FilledLinkButton } from '@/components/theme';
 import { useOrderContext } from '@/lib/contexts';
 import { getFormattedPrice } from '@/lib/utils';
 
@@ -21,17 +21,15 @@ export const CartTooltipFooter = () => {
         </div>
       </div>
       <div className="p-24 flex-none">
-        <FilledButton
-          onClick={() => {
-            // mark as sold
-          }}
+        <FilledLinkButton
+          href="/checkout"
           className={`h-64 w-full font-medium text-neutral-white ${
             !lines?.length &&
             'cursor-not-allowed pointer-events-none bg-neutral-border text-neutral-white'
           }`}
         >
           Continúa y paga
-        </FilledButton>
+        </FilledLinkButton>
       </div>
     </footer>
   );

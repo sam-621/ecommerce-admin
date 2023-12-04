@@ -4,8 +4,6 @@ import { Chip } from '@/components/theme';
 import { type Product } from '@/lib/types';
 import { getFormattedPrice } from '@/lib/utils';
 
-import { ProductDetailsActions } from './product-details-actions';
-
 export const StickyProductCart: FC<Props> = ({ product }) => {
   const isInStock = product.stock > 0;
   const hasDiscount = Boolean(product.comparisonPrice && product.comparisonPrice > 0);
@@ -40,7 +38,7 @@ export const StickyProductCart: FC<Props> = ({ product }) => {
         </div>
       )}
       <h4 className="mb-12 text-32 font-bold">{getFormattedPrice(product.price ?? 0)}</h4>
-      <ProductDetailsActions product={product} />
+      {/* <ProductDetailsActions product={product} /> */}
     </div>
   );
 };

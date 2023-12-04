@@ -23,7 +23,7 @@ export const ProductDetailsActions: FC<Props> = ({ product }) => {
         </div>
       </div>
       <div className="mt-5">
-        <AddToCartButton productId={product.id} quantity={1} stock={product.stock} />
+        <AddToCartButton productId={product.id} quantity={Number(quantity)} stock={product.stock} />
       </div>
     </>
   );
