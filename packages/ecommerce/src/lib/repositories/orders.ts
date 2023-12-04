@@ -8,7 +8,7 @@ const getById = async (id: string) => {
 };
 
 const create = async () => {
-  await vendyxFetch(`order`, { method: 'POST' });
+  return await vendyxFetch<Order>(`order`, { method: 'POST' });
 };
 
 const addLine = async (input: { productId: string; quantity: number; orderId: string }) => {

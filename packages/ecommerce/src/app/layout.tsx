@@ -5,6 +5,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
 import { Nav } from '@/components/layout';
+import { OrderProvider } from '@/lib/contexts';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -17,8 +18,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={`${inter.className} bg-[#FBFDFE]`}>
-        <Nav />
-        <div className="wrapper">{children}</div>
+        <OrderProvider>
+          <Nav />
+          <div className="wrapper">{children}</div>
+        </OrderProvider>
       </body>
     </html>
   );

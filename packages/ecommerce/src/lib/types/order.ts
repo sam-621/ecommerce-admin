@@ -31,3 +31,9 @@ export enum OrderStates {
   SHIPPED = 'SHIPPED',
   DELIVERED = 'DELIVERED'
 }
+
+export type AddLineInput = {
+  productId: string;
+  quantity: number;
+  orderId: string;
+};
