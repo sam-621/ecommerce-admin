@@ -22,9 +22,31 @@ const removeLine = async (input: { lineId: string }) => {
   });
 };
 
+const addCustomer = async (input: {
+  email: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  orderId: string;
+}) => {
+  return await vendyxFetch<Order>(`order/add-customer`, {
+    body: JSON.stringify(input),
+    method: 'POST'
+  });
+};
+
+const complete = async (input: { orderId: string }) => {
+  return await vendyxFetch<Order>(`order/complete`, {
+    body: JSON.stringify(input),
+    method: 'POST'
+  });
+};
+
 export const OrderRepository = {
   getById,
   create,
   addLine,
-  removeLine
+  removeLine,
+  addCustomer,
+  complete
 };

@@ -1,19 +1,43 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { FilledButton, Input } from '@/components/theme';
+import { useOrderContext } from '@/lib/contexts';
+import { OrderRepository } from '@/lib/repositories';
+import { LS_ORDER_ID } from '@/lib/utils';
 
 export const ContactInformationForm = () => {
+  const { push } = useRouter();
+  const { order } = useOrderContext();
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [tel, setTel] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onSubmit = async e => {
     e.preventDefault();
     setIsSubmitting(true);
+
+    const body = {
+      firstName,
+      lastName,
+      phoneNumber,
+      email
+    };
+
+    const { data } = await OrderRepository.addCustomer({
+      ...body,
+      orderId: order?.id ?? ''
+    });
+
+    await OrderRepository.complete({ orderId: data.id });
+
+    localStorage.removeItem(LS_ORDER_ID);
+    push(`/checkout/complete?orderId=${data.id}`);
   };
 
   return (
@@ -27,7 +51,7 @@ export const ContactInformationForm = () => {
           <Input setValue={setLastName} name="lastName" label="Apellido(s)" type="text" />
         </div>
         <Input setValue={setEmail} name="email" label="Correo electronico" type="email" />
-        <Input setValue={setTel} name="tel" label="Número de teléfono" type="text" />
+        <Input setValue={setPhoneNumber} name="tel" label="Número de teléfono" type="text" />
         <FilledButton type="submit" disabled={isSubmitting}>
           {isSubmitting ? 'Procesando la compra...' : 'Comprar'}
         </FilledButton>

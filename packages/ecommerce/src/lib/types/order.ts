@@ -4,6 +4,7 @@ export type Order = {
   id: string;
   createdAt: Date;
   updatedAt: Date;
+  collocatedAt: Date;
   code: string;
   state: OrderStates;
   total: 0;
