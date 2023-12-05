@@ -36,7 +36,12 @@ export const ProductCategoryCard: FC<Props> = ({ product, category }) => {
         <span>{product.name}</span>
       </div>
       <div>
-        <span>$ {product.price}</span>
+        <span>
+          {new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD'
+          }).format(product.price)}
+        </span>
       </div>
       <div>
         <Button
