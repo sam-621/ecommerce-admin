@@ -18,6 +18,12 @@ export const ContactInformationForm = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
+    if (!Number(phoneNumber)) {
+      alert('El número de teléfono debe ser un número');
+      setIsSubmitting(false);
+      return;
+    }
+
     const body = {
       firstName,
       lastName,
@@ -35,11 +41,17 @@ export const ContactInformationForm = () => {
       </h1>
       <form onSubmit={onSubmit} className="flex flex-col gap-16">
         <div className="flex flex-col gap-16 lg:flex-row lg:gap-6">
-          <Input setValue={setFirstName} name="firstName" label="Nombre(s)" type="text" />
-          <Input setValue={setLastName} name="lastName" label="Apellido(s)" type="text" />
+          <Input required setValue={setFirstName} name="firstName" label="Nombre(s)" type="text" />
+          <Input required setValue={setLastName} name="lastName" label="Apellido(s)" type="text" />
         </div>
-        <Input setValue={setEmail} name="email" label="Correo electronico" type="email" />
-        <Input setValue={setPhoneNumber} name="tel" label="Número de teléfono" type="text" />
+        <Input required setValue={setEmail} name="email" label="Correo electronico" type="email" />
+        <Input
+          required
+          setValue={setPhoneNumber}
+          name="tel"
+          label="Número de teléfono"
+          type="tel"
+        />
         <FilledButton type="submit" disabled={isSubmitting}>
           {isSubmitting ? 'Procesando la compra...' : 'Comprar'}
         </FilledButton>

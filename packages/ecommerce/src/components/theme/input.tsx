@@ -39,4 +39,4 @@ type Props = InputHTMLAttributes<HTMLInputElement> & {
   error?: string;
 };
 
-export type InputTypes = 'text' | 'password' | 'email';
+export type InputTypes = 'text' | 'password' | 'email' | 'tel';
