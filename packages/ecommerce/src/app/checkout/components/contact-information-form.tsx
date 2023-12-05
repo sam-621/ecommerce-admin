@@ -1,16 +1,12 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { FilledButton, Input } from '@/components/theme';
 import { useOrderContext } from '@/lib/contexts';
-import { OrderRepository } from '@/lib/repositories';
-import { LS_ORDER_ID } from '@/lib/utils';
 
 export const ContactInformationForm = () => {
-  const { push } = useRouter();
-  const { order } = useOrderContext();
+  const { completeOrder } = useOrderContext();
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -29,15 +25,7 @@ export const ContactInformationForm = () => {
       email
     };
 
-    const { data } = await OrderRepository.addCustomer({
-      ...body,
-      orderId: order?.id ?? ''
-    });
-
-    await OrderRepository.complete({ orderId: data.id });
-
-    localStorage.removeItem(LS_ORDER_ID);
-    push(`/checkout/complete?orderId=${data.id}`);
+    await completeOrder(body);
   };
 
   return (

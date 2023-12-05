@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import {
   createContext,
   type FC,
@@ -17,18 +18,26 @@ type ContextSchema = {
   order: Order | null;
   removeLine: (lineId: string) => Promise<void>;
   addLine: (productId: string, quantity: number) => Promise<void>;
+  completeOrder: (input: {
+    firstName: string;
+    lastName: string;
+    phoneNumber: string;
+    email: string;
+  }) => Promise<void>;
 };
 
 const initialOrder: ContextSchema = {
   order: null,
   addLine: async () => {},
-  removeLine: async () => {}
+  removeLine: async () => {},
+  completeOrder: async () => {}
 };
 
 export const OrderContext = createContext(initialOrder);
 
 export const OrderProvider: FC<Props> = ({ children }) => {
   const [order, setOrder] = useState<Order | null>(null);
+  const { push } = useRouter();
 
   const refetchOrder = async () => {
     const orderId = localStorage.getItem(LS_ORDER_ID);
@@ -76,8 +85,28 @@ export const OrderProvider: FC<Props> = ({ children }) => {
     return data.id;
   };
 
+  const completeOrder = async (input: {
+    firstName: string;
+    lastName: string;
+    phoneNumber: string;
+    email: string;
+  }) => {
+    const { data } = await OrderRepository.addCustomer({
+      ...input,
+      orderId: order?.id ?? ''
+    });
+
+    await OrderRepository.complete({ orderId: data.id });
+
+    localStorage.removeItem(LS_ORDER_ID);
+    await refetchOrder();
+    push(`/checkout/complete?orderId=${data.id}`);
+  };
+
   return (
-    <OrderContext.Provider value={{ order, addLine, removeLine }}>{children}</OrderContext.Provider>
+    <OrderContext.Provider value={{ order, addLine, removeLine, completeOrder }}>
+      {children}
+    </OrderContext.Provider>
   );
 };
 
