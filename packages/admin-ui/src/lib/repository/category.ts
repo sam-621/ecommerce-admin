@@ -132,6 +132,22 @@ const update = async (id: string, input: Prisma.CategoryUpdateInput): Promise<Ca
 };
 
 const remove = async (id: string): Promise<void> => {
+  const productsOnCategory = await prisma.productOnCategory.findMany({
+    where: {
+      categoryId: id
+    }
+  });
+
+  const productsIds = productsOnCategory.map(p => p.productId);
+
+  if (productsIds.length) {
+    await prisma.productOnCategory.deleteMany({
+      where: {
+        categoryId: id
+      }
+    });
+  }
+
   await prisma.category.delete({ where: { id } });
 };
 

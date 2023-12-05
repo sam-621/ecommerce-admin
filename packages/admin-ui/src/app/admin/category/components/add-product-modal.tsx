@@ -4,7 +4,7 @@ import { BoxesIcon, CheckIcon, Loader2Icon } from 'lucide-react';
 import Image from 'next/image';
 import { type FC, useState } from 'react';
 
-import { Button, Dialog, Input } from '@/components/theme';
+import { Button, Dialog } from '@/components/theme';
 import { notification } from '@/lib/notification';
 import { type ProductWithCategories } from '@/lib/types';
 
@@ -48,8 +48,8 @@ export const AddProductModal: FC<Props> = ({ products, category }) => {
       }}
     >
       <div className="flex flex-col gap-4">
-        <Input placeholder="Encontrar productos" />
-        <div className="flex flex-col gap-4">
+        {/* <Input placeholder="Encontrar productos" /> */}
+        <div className="flex flex-col gap-4 h-80 overflow-y-scroll">
           {products
             .filter(p => !p.categories.some(c => c.id === category.id))
             .map(p => (
