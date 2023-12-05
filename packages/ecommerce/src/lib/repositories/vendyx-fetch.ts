@@ -1,7 +1,7 @@
 import { type VendyxFetch } from '../utils';
 
 export const vendyxFetch: VendyxFetch = async (url, options) => {
-  const response = await fetch(`http://localhost:3001/api/${url}`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL ?? process.env.API_URL}${url}`, {
     method: 'GET',
     cache: 'no-cache',
     ...options
