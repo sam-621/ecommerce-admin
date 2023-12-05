@@ -21,7 +21,7 @@ export const CheckoutProductCard: FC<Props> = ({ orderLine }) => {
       </div>
       <div className="content flex flex-col gap-8">
         <h3 className="h4 text-16 font-semibold">{product.name}</h3>
-        <h2 className="h3 text-24 font-semibold">${getFormattedPrice(product.price)}</h2>
+        <h2 className="h3 text-24 font-semibold">{getFormattedPrice(product.price)}</h2>
         <ul className="text-14 flex flex-col lg:flex-row lg:gap-12 lg:flex-wrap gap-8">
           <li className="text-neutral-light font-normal">
             <span className="font-medium text-neutral-text">Cantidad:</span> {orderLine.quantity}

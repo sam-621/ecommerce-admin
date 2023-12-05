@@ -127,16 +127,6 @@ export const ProductDetails: FC<Props> = ({ product }) => {
             </Select>
           </CardContent>
         </Card>
-
-        <Card>
-          <CardContent className="flex flex-col gap-4 p-4">
-            {/* <Select label="Colecciones" placeholder="Selecciona colleciones" /> */}
-            <ul className="flex flex-col gap-4">
-              <li className="text-sm font-normal">• Clothes</li>
-              <li className="text-sm font-normal">• Electronics</li>
-            </ul>
-          </CardContent>
-        </Card>
       </div>
     </section>
   );

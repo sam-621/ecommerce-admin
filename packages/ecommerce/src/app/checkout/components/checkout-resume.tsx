@@ -22,7 +22,7 @@ export const CheckoutResume = () => {
         <div className="flex flex-col gap-6 font-medium">
           <div className="flex justify-between items-center">
             <span className="text-neutral-text text-16">Producto:</span>
-            <span className="text-neutral-text">${getFormattedPrice(order?.total ?? 0)}</span>
+            <span className="text-neutral-text">{getFormattedPrice(order?.total ?? 0)}</span>
           </div>
           <div className="flex justify-between items-center">
             <span className="text-neutral-text text-16">Envío:</span>

@@ -83,7 +83,7 @@ export const CategoryDetails: FC<Props> = ({ category, products }) => {
                 className="w-fit"
                 type="button"
               >
-                Eliminar producto
+                Eliminar Categoría
               </Button>
             </CardContent>
           </Card>
