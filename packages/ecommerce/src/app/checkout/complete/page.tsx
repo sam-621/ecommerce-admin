@@ -68,7 +68,7 @@ export default async function SuccessPage({
   );
 }
 
-export const MONTHS = {
+const MONTHS = {
   0: 'Enero',
   1: 'Febrero',
   2: 'Marzo',
