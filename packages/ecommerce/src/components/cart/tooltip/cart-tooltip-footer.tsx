@@ -3,7 +3,7 @@ import { useOrderContext } from '@/lib/contexts';
 import { getFormattedPrice } from '@/lib/utils';
 
 export const CartTooltipFooter = () => {
-  const { order } = useOrderContext();
+  const { order, closeModal } = useOrderContext();
   const lines = order?.lines;
 
   return (
@@ -22,6 +22,7 @@ export const CartTooltipFooter = () => {
       </div>
       <div className="p-24 flex-none">
         <FilledLinkButton
+          onClick={closeModal}
           href="/checkout"
           className={`h-64 w-full font-medium text-neutral-white ${
             !lines?.length &&

@@ -24,20 +24,35 @@ type ContextSchema = {
     phoneNumber: string;
     email: string;
   }) => Promise<void>;
+  openModal: () => void;
+  closeModal: () => void;
+  isOpen: boolean;
 };
 
 const initialOrder: ContextSchema = {
   order: null,
+  isOpen: false,
   addLine: async () => {},
   removeLine: async () => {},
-  completeOrder: async () => {}
+  completeOrder: async () => {},
+  openModal: () => {},
+  closeModal: () => {}
 };
 
 export const OrderContext = createContext(initialOrder);
 
 export const OrderProvider: FC<Props> = ({ children }) => {
   const [order, setOrder] = useState<Order | null>(null);
+  const [isOpen, setIsOpen] = useState(false);
   const { push } = useRouter();
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
 
   const refetchOrder = async () => {
     const orderId = localStorage.getItem(LS_ORDER_ID);
@@ -99,12 +114,14 @@ export const OrderProvider: FC<Props> = ({ children }) => {
     await OrderRepository.complete({ orderId: data.id });
 
     localStorage.removeItem(LS_ORDER_ID);
-    await refetchOrder();
+    setOrder(null);
     push(`/checkout/complete?orderId=${data.id}`);
   };
 
   return (
-    <OrderContext.Provider value={{ order, addLine, removeLine, completeOrder }}>
+    <OrderContext.Provider
+      value={{ order, isOpen, closeModal, openModal, addLine, removeLine, completeOrder }}
+    >
       {children}
     </OrderContext.Provider>
   );

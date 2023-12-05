@@ -58,7 +58,7 @@ export default async function SuccessPage({
             <div className="flex justify-between items-center">
               <span className="text-neutral-text text-16">Total:</span>
               <span className="text-neutral-title text-32 font-bold">
-                ${getFormattedPrice(order?.total ?? 0)}
+                {getFormattedPrice(order?.total ?? 0)}
               </span>
             </div>
           </div>

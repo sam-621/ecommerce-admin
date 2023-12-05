@@ -1,22 +1,20 @@
 'use client';
 
 import { ShoppingCartIcon } from 'lucide-react';
-import { useState } from 'react';
 
 import { useOrderContext } from '@/lib/contexts';
 
 import { CartTooltip } from './cart-tootlip';
 
 export const Cart = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const { order } = useOrderContext();
+  const { order, isOpen, closeModal, openModal } = useOrderContext();
 
   return (
     <>
       <button
         type="button"
         className="relative w-40 h-40 hover:bg-neutral-alt text-neutral-light hover:text-neutral-text transition-all flex-none rounded-full place-items-center grid"
-        onClick={() => setIsOpen(true)}
+        onClick={openModal}
       >
         <ShoppingCartIcon className="h-24 cursor-pointer" />
         {Boolean(order?.totalQuantity) && (
@@ -25,7 +23,7 @@ export const Cart = () => {
           </span>
         )}
       </button>
-      <CartTooltip isOpen={isOpen} close={() => setIsOpen(false)} />
+      <CartTooltip isOpen={isOpen} close={closeModal} />
     </>
   );
 };
